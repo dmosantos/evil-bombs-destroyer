@@ -18,7 +18,8 @@ div {
 #canvas {
     background: #5af;
     height: 100vh;
-    position: fixed;
+    overflow: hidden;
+    position: absolute;
     width: 100vw;
 }
 
@@ -118,6 +119,12 @@ div {
     width: 2px;
     z-index: 5;
 }
+.enemy-bomb-2 .enemy-bomb-body {
+    background-color: #d47a0f;
+}
+.enemy-bomb-3 .enemy-bomb-body {
+    background-color: #ce2727;
+}
 
 #placar {
     bottom: 0;
@@ -133,8 +140,11 @@ div {
 }
 #menu {
     display: flex;
-    right: 15px;
+    flex-direction: column;
+    opacity: 0.8;
+    right: 5px;
     top: 5px;
+    z-index: 20;
 }
 .bt {
     background: #000;
@@ -143,7 +153,8 @@ div {
     color: #fff;
     cursor: pointer;
     display: block;
-    height: 20px;
+    height: 30px;
+    margin-bottom: 5px;
     margin-left: 5px;
     padding: 0 15px;
 }
@@ -170,4 +181,32 @@ div {
         background: #ccc;
         opacity: 0;
     }
+}
+
+#player-life {
+    border: 1px solid #090;
+    border-radius: 5px;
+    height: 30%;
+    left: 5px;
+    top: 5px;
+    overflow: hidden;
+    width: 10px;
+    z-index: 20;
+}
+#player-life-bar {
+    background: #5b5;
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    opacity: 0.8;
+    width: 100%;
+}
+#player-life-bar:after {
+    background: rgba(255, 255, 255, 0.3);
+    content: '';
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    width: 50%;
 }
