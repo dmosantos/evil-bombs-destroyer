@@ -5,11 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Evil Bombs Destroyer</title>
-        <link rel="stylesheet" href="normalize.css">
-        <link rel="stylesheet" href="main.css?v5">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css?v5">
     </head>
     <body>
-        <div id="canvas" onclick="shoot()">
+        <div id="canvas">
             <!--
             <div class="enemy-bomb">
                <div class="enemy-bomb-body"></div>
@@ -26,7 +26,8 @@
                 <div id="player-life-bar"></div>
             </div>
             -->
-            <div id="land"></div>
+            <div id="sky" class="sky-clouds"></div>
+            <div id="land" class="land-grass"></div>
             <div id="placar">
                 <div id="placar-points"><span id="points">0</span> pontos</div>
             </div>
@@ -36,9 +37,21 @@
                 <button class="bt" onclick="pause()">PAUSE</button>
                 <button class="bt" onclick="reset()">RESET</button>
             </div>
-            
+            <div id="active-bonus">
+                <div id="bonus-tribullet" class="bonus bonus-tribullet"></div>
+                <div id="bonus-multiplebullet" class="bonus bonus-multiplebullet"></div>
+                <div id="bonus-speedbullet" class="bonus bonus-speedbullet"></div>
+            </div>
         </div>
         
-        <script src="main.js?v5"></script>
+        <script src="js/core.js?v5"></script>
+        <script src="js/class.Element.js?v5"></script>
+        <script src="js/class.Player.js?v5"></script>
+        <script src="js/class.PlayerBullet.js?v5"></script>
+        <script src="js/class.PlayerLife.js?v5"></script>
+        <script src="js/class.EnemyBomb.js?v5"></script>
+        <script src="js/class.Explosion.js?v5"></script>
+        <script src="js/class.Bonus.js?v5"></script>
+        <script src="js/main.js?v5"></script>
     </body>
 </html>
