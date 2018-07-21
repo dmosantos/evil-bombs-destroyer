@@ -283,16 +283,16 @@ div {
     z-index: 9;
 }
 .bonus-tribullet {
-    background-image: url(../images/bonus-tribullet);
+    background-image: url(../images/bonus-tribullet.svg);
 }
 .bonus-multiplebullet {
-    background-image: url(../images/bonus-multiplebullet);
+    background-image: url(../images/bonus-multiplebullet.svg);
 }
 .bonus-speedbullet {
-    background-image: url(../images/bonus-speedbullet);
+    background-image: url(../images/bonus-speedbullet.svg);
 }
 .bonus-life {
-    background-image: url(../images/bonus-life);
+    background-image: url(../images/bonus-life.svg);
 }
 #active-bonus {
     bottom: 5px;
