@@ -73,7 +73,7 @@ div {
     height: 10px;
     left: -100px;
     width: 10px;
-    animation: bullet linear 0.1s infinite;
+    /*animation: bullet linear 0.1s infinite;*/
 }
 
 @keyframes bullet {
@@ -301,7 +301,7 @@ div {
     z-index: 50;
 }
 .bonus {
-    animation: bonus 0.3s linear infinite;
+    /*animation: bonus 0.3s linear infinite;*/
 }
 #active-bonus .bonus-tribullet {
     left: 0;
