@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Evil Bombs Destroyer</title>
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css?v6">
+    </head>
+    <body>
+        <div id="canvas">
+            <!--
+            <div class="enemy-bomb">
+               <div class="enemy-bomb-body"></div>
+               <div class="enemy-bomb-wing-1"></div>
+               <div class="enemy-bomb-wing-2"></div>
+               <div class="enemy-bomb-wing-3"></div>
+           </div>
+           <div class="player-bullet"></div>
+           <div id="player">
+                <div id="player-body"></div>
+                <div id="player-weapom"></div>
+            </div>
+            <div id="player-life">
+                <div id="player-life-bar"></div>
+            </div>
+            -->
+            <div id="sky" class="sky-clouds"></div>
+            <div id="land" class="land-grass"></div>
+            <div id="placar">
+                <div id="placar-points"><span id="points">0</span> pontos</div>
+            </div>
+            <div id="menu">
+                <button class="bt" onclick="start()">START</button>
+                <button class="bt" onclick="stop()">STOP</button>
+                <button class="bt" onclick="pause()">PAUSE</button>
+                <button class="bt" onclick="reset()">RESET</button>
+            </div>
+            <div id="active-bonus">
+                <div id="bonus-tribullet" class="bonus bonus-tribullet"></div>
+                <div id="bonus-multiplebullet" class="bonus bonus-multiplebullet"></div>
+                <div id="bonus-speedbullet" class="bonus bonus-speedbullet"></div>
+            </div>
+        </div>
+        
+        <script src="js/core.js?v6"></script>
+        <script src="js/class.Element.js?v6"></script>
+        <script src="js/class.Player.js?v6"></script>
+        <script src="js/class.PlayerBullet.js?v6"></script>
+        <script src="js/class.PlayerLife.js?v6"></script>
+        <script src="js/class.EnemyBomb.js?v6"></script>
+        <script src="js/class.Explosion.js?v6"></script>
+        <script src="js/class.Bonus.js?v6"></script>
+        <script src="js/main.js?v6"></script>
+    </body>
+</html>
