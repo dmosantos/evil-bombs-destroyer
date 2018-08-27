@@ -3,7 +3,6 @@ function HomeScreen() {
 
 	this.type = 'HomeScreen';
 	this.id = this.type;
-
 }
 
 HomeScreen.prototype = new Element();
@@ -25,11 +24,11 @@ HomeScreen.prototype.draw = function() {
     textStyle(BOLD);
     text('EVIL BOMBS DESTROYER', (windowWidth * 0.5) - 125, this.height * 0.25, 250);
 
-    if((millis() / 1000) - $.states.start > 2) {
+    //if((millis() / 1000) - $.states.start > 2) {
         textSize(18);
         textStyle(NORMAL);
         text('Toque para iniciar', 0, this.height * 0.55, this.width);
-    }
+    //}
 
     textSize(14);
     textStyle(NORMAL);

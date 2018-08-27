@@ -86,3 +86,7 @@ EnemyBomb.prototype.draw = function() {
     textSize(16);
     text(this.life, 0, 0);
 }
+
+EnemyBomb.prototype.die = function() {
+    $.appendElement(new Explosion(this));
+}

@@ -1,7 +1,7 @@
 function Element() {
     this.type = null;
     this.id = null;
-    this.layer = 0;
+    this.layer = 1;
     this.context = $.states.currentContext;
 
     this.x = 0;

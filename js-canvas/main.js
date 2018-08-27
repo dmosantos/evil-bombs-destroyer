@@ -24,7 +24,7 @@ function setup() {
 
 function draw() {
     clear();
-    background(0);
+    background($.states.background);
 
     if(typeof $.contexts[$.states.currentContext] != 'undefined') {
         Object.keys($.contexts[$.states.currentContext]).forEach(function(layer) {
@@ -62,6 +62,23 @@ function draw() {
             }
             break;
     }
+
+    // Tests
+    // fill(30);
+    // noStroke();
+    // beginShape();
+    //     vertex(0, 0);
+    //     vertex(150, 0);
+    //     vertex(150, 150);
+    //     vertex(0, 150);
+    //     beginContour();
+    //         vertex(50, 50);
+    //         vertex(50, 100);
+    //         vertex(100, 100);
+    //         vertex(100, 50);
+    //     endContour();
+    // endShape();
+    // pop();
 }
 
 function windowResized() {
@@ -77,7 +94,7 @@ function touchStarted() {
 }
 
 function fire() {
-    if($.states.currentContext == 'gamePlay' || (millis() / 1000) - $.states.start > 2)
+    if($.states.currentContext != 'gameOver' || (millis() / 1000) - $.states.start > 2)
         $.states.shooting = true;
 }
 

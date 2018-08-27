@@ -7,9 +7,22 @@
     <title>Evil Bombs Destroyer</title>
     
     <style>
+        *, *:after, *:before {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
         body {
             margin: 0;
             overflow: hidden;
+        }
+        canvas {
+            left: 0;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            width: 100%;
         }
     </style>
 </head>
@@ -17,6 +30,7 @@
 <script src="vendor/p5/p5.min.js"></script>
 <script src="vendor/p5.collide2d/p5.collide2d.min.js"></script>
 <script src="js-canvas/core.js?v1"></script>
+<script src="js-canvas/class.Animation.js?v1"></script>
 <script src="js-canvas/class.Element.js?v1"></script>
 <script src="js-canvas/class.HomeScreen.js?v1"></script>
 <script src="js-canvas/class.GameOver.js?v1"></script>
@@ -24,10 +38,10 @@
 <script src="js-canvas/class.Placar.js?v1"></script>
 <script src="js-canvas/class.Player.js?v1"></script>
 <script src="js-canvas/class.PlayerBullet.js?v1"></script>
+<script src="js-canvas/class.Explosion.js?v1"></script>
 <script src="js-canvas/class.EnemyBomb.js?v1"></script>
 <!--
 <script src="js-canvas/class.PlayerLife.js?v1"></script>
-<script src="js-canvas/class.Explosion.js?v1"></script>
 <script src="js-canvas/class.Bonus.js?v1"></script>
 -->
 <script src="js-canvas/main.js?v1"></script>

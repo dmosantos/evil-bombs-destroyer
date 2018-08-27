@@ -3,7 +3,6 @@ function GameOver() {
 
 	this.type = 'GameOver';
 	this.id = this.type;
-
 }
 
 GameOver.prototype = new Element();

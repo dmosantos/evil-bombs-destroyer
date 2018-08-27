@@ -4,6 +4,7 @@ function Core() {
 	// States Control
 	this.states = {
 		start: 0,
+		background: 0,
 		shooting: false,
 		currentContext: 'preload',
 		points: 0
