@@ -12,7 +12,7 @@ function EnemyBomb(type) {
     this.width = 60;
     this.speed = 1;
     this.direction = 90;
-    this.life = round(random(1, 10 + floor(((millis() / 1000) - $.states.start) * 0.025)));
+    this.life = round(random(1, 10 + floor(((millis() / 1000) - $.states.start) * 0.05)));
 
     this.moviment = this.x > windowWidth / 2;
 }
