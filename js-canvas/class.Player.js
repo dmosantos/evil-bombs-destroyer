@@ -42,13 +42,14 @@ Player.prototype.update = function() {
              : this.direction;
 
     if($.states.shooting) {
+        $.play('shoot', 0.004);
         $.appendElement(new PlayerBullet());
         $.states.shooting = false;
     }
 }
 
 Player.prototype.draw = function() {
-    fill(255);
+    fill($.config.baseColor);
     noStroke();
 
     // Canhão
@@ -59,13 +60,15 @@ Player.prototype.draw = function() {
     translate(-this.x, -(this.y - 5));
 
     // Corpo
-    strokeWeight(2);
-    stroke(0);
-    arc(this.x, this.y + 1, this.width + 1, this.height + 1, 180, 0, CHORD);
+    //strokeWeight(2);
+    //stroke(0);
+    arc(this.x, this.y, this.width, this.height, 180, 0, CHORD);
 
     // Life
-    fill(0);
+    fill($.config.secondColor);
+    noStroke();
     textAlign(CENTER, CENTER);
+    textStyle(BOLD);
     textSize(16);
     text(this.life, this.x, this.y - 10);
 }

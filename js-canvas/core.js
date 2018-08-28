@@ -1,14 +1,36 @@
 function Core() {
 	var self = this;
 
+	// Config
+	this.config = {
+        baseColor: color(0),
+        secondColor: color(255)
+    }
+
 	// States Control
 	this.states = {
 		start: 0,
-		background: 0,
+		background: {
+	        active: 'base',
+	        get: {
+	            base: {
+	                topColor: color(156, 14, 55),
+	                bottomColor: color(255, 236, 115)
+	            },
+	            light: {
+	                topColor: color(215, 20, 76),
+	                bottomColor: color(255)
+	            }
+	        }
+	    },
 		shooting: false,
 		currentContext: 'preload',
-		points: 0
+		points: 0,
+		enemyMaxLife: 10
 	}
+
+	// Sounds
+	this.sounds = {}
 
 	// Elements lists
 	this.elements = {};
@@ -36,7 +58,18 @@ Core.prototype.get = function(id) {
 	return $.elements[element.id];
 }
 
-var $ = new Core();
+Core.prototype.play = function(sound, volume) {
+	if(typeof volume != 'undefined')
+		$.sounds[sound].setVolume(volume);
+
+	$.sounds[sound].play();
+}
+
+Core.prototype.stop = function(sound) {
+	$.sounds[sound].stop();
+}
+
+var $;
 
 /* HELPERS */
 function newId() {
@@ -67,6 +100,27 @@ function getPoint(mx, my, cx, cy, angle) {
 
 function angleBetween(p1x, p1y, p2x, p2y) {
 	return atan2(p2y - p1y, p2x - p1x);
+}
+
+function setGradient(x, y, w, h, c1, c2, axis) {
+  noFill();
+
+  if (axis == 1) {  // Top to bottom gradient
+    for (var i = y; i <= y+h; i++) {
+      var inter = map(i, y, y+h, 0, 1);
+      var c = lerpColor(c1, c2, inter);
+      stroke(c);
+      line(x, i, x+w, i);
+    }
+  }  
+  else if (axis == 2) {  // Left to right gradient
+    for (var i = x; i <= x+w; i++) {
+      var inter = map(i, x, x+w, 0, 1);
+      var c = lerpColor(c1, c2, inter);
+      stroke(c);
+      line(i, y, i, y+h);
+    }
+  }
 }
 
 function l(x) {

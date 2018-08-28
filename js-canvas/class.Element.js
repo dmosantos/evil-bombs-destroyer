@@ -2,7 +2,7 @@ function Element() {
     this.type = null;
     this.id = null;
     this.layer = 1;
-    this.context = $.states.currentContext;
+    this.context = $ ? $.states.currentContext : null;
 
     this.x = 0;
     this.y = 0;

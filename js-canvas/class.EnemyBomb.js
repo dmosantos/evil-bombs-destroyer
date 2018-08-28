@@ -10,11 +10,12 @@ function EnemyBomb(type) {
     this.y = -40;
     this.height = 30;
     this.width = 60;
-    this.speed = 1;
+    this.speed = round(random(1, ($.states.enemyMaxLife - 10) / 20));
     this.direction = 90;
-    this.life = round(random(1, 10 + floor(((millis() / 1000) - $.states.start) * 0.05)));
+    this.life = round(random(1, $.states.enemyMaxLife));
 
     this.moviment = this.x > windowWidth / 2;
+    this.lastHit = 0;
 }
 
 EnemyBomb.prototype = new Element();
@@ -40,6 +41,7 @@ EnemyBomb.prototype.update = function() {
 
             //if(collidePointRect(bulletCoord.x, bulletCoord.y, self.x - (self.width / 2), self.y - (self.height / 2), self.width, self.height)) {
             if(collideRectCircle(self.x - (self.width / 2), self.y - (self.height / 2), self.width, self.height, bulletCoord.x, bulletCoord.y, $.elements[id].diameter)) {
+                $.appendElement(new HitParticles(self));
                 $.states.points = $.states.points + self.life;
                 $.elements[id]._hit(1);
                 self._hit(1);
@@ -52,14 +54,16 @@ EnemyBomb.prototype.draw = function() {
     rotate(this.direction);
     translate(-(this.width / 2), -(this.height / 2));
     
-    fill(255);
-    strokeWeight(2);
-    stroke(0);
+    if(frameCount <= this.lastHit + 1)
+        fill(70);
+    else
+        fill($.config.baseColor);
+    noStroke();
     
     // Asa de cima
     beginShape();
     vertex(0, 0);
-    vertex(this.width * 0.3, 0);
+    vertex(this.width * 0.25, 0);
     vertex(this.width * 0.4, this.height * 0.38);
     vertex(this.width * 0.1, this.height * 0.38);
     endShape(CLOSE);
@@ -68,7 +72,7 @@ EnemyBomb.prototype.draw = function() {
     beginShape();
     vertex(this.width * 0.1, this.height * 0.62);
     vertex(this.width * 0.4, this.height * 0.62);
-    vertex(this.width * 0.3, this.height);
+    vertex(this.width * 0.25, this.height);
     vertex(0, this.height);
     endShape(CLOSE);
 
@@ -81,10 +85,17 @@ EnemyBomb.prototype.draw = function() {
     // Life
     translate(this.width * 0.65, this.height / 2);
     rotate(-this.direction);
-    fill(0);
+    fill($.config.secondColor);
+    noStroke();
     textAlign(CENTER, CENTER);
+    textStyle(BOLD);
     textSize(16);
     text(this.life, 0, 0);
+}
+
+EnemyBomb.prototype.hit = function() {
+    $.play('hit', 0.3);
+    this.lastHit = frameCount;
 }
 
 EnemyBomb.prototype.die = function() {

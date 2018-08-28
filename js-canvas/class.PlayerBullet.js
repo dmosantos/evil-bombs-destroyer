@@ -20,7 +20,7 @@ PlayerBullet.prototype.update = function() {
 }
 
 PlayerBullet.prototype.draw = function() {
-    fill(255);
+    fill($.config.baseColor);
     stroke(0);
     noStroke();
 

@@ -8,13 +8,13 @@ function Ground() {
 Ground.prototype = new Element();
 
 Ground.prototype.update = function() {
-	this.y = windowHeight - 48;
+	this.y = windowHeight - 50;
 	this.width = windowWidth;
 	this.height = windowHeight - this.y;
 }
 
 Ground.prototype.draw = function() {
-    fill(255);
+    fill($.config.baseColor);
     noStroke();
 
     rect(this.x, this.y, this.width, this.height);
