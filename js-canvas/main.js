@@ -55,7 +55,7 @@ function draw() {
 
     switch($.states.currentContext) {
         case 'gamePlay':
-            if(frameCount % 120 == 0 && $.elements.Player)
+            if(frameCount % 60 == 0 && $.elements.Player)
                 $.appendElement(new EnemyBomb());
 
             var newEnemyMaxLife = 10 + floor((frameCount - $.states.start) / 1000);
