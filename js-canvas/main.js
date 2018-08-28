@@ -55,7 +55,7 @@ function draw() {
 
     switch($.states.currentContext) {
         case 'gamePlay':
-            if(millis() % 2000 < 17 && $.elements.Player)
+            if(frameCound % 120 = 0 && $.elements.Player)
                 $.appendElement(new EnemyBomb());
 
             var newEnemyMaxLife = 10 + floor((frameCount - $.states.start) / 1000);
@@ -145,7 +145,7 @@ function gamePlay() {
 
 // Game Over
 function gameOver() {
-    $.states.start = millis() / 1000;
+    $.states.start = frameCount;
     $.states.shooting = false;
     $.states.currentContext = 'gameOver';
 
