@@ -143,7 +143,9 @@ function gamePlay() {
 
     $.sounds.stop('music', 'music_is_this_love');
     $.sounds.stop('music', 'music_eternity');
-    $.sounds.play('music', 'music_eternity');
+    $.sounds.play('music', 'music_eternity'{
+        setLoop: true
+    });
     $.sounds.play('sound', 'seek_and_destroy');
 
     $.appendElement(new Ground());

@@ -3,7 +3,7 @@ function PlayerBullet() {
 
 	this.type = 'PlayerBullet';
 	this.id = this.type + '_' + newId();
-	this.layer = 9;
+	this.layer = 4;
 
 	this.direction = $.elements.Player.direction;
 	this.x = $.elements.Player.x + (cos(this.direction) * 45);
