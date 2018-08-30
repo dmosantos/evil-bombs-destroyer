@@ -1,3 +1,5 @@
+var fontAwesome;
+
 function preload() {
     $ = new Core();
 
@@ -5,7 +7,6 @@ function preload() {
 
     [
         ['music', 'music-is-this-love.mp3'],
-        ['music', 'music-eternity.mp3'],
         ['sound', 'explosion-1.mp3'],
         ['sound', 'explosion-2.mp3'],
         ['sound', 'explosion-3.mp3'],
@@ -18,11 +19,16 @@ function preload() {
     ].forEach(function(file) {
         $.sounds.load(file[0], file[1]);
     });
+
+    fontAwesome = loadFont('fonts/FontAwesome.otf');
 }
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
     angleMode(DEGREES);
+
+    if($.data.get('mute'))
+        mute();
 
     homeScreen();
 }
@@ -115,8 +121,13 @@ function fire(type) {
     if(!$.states.firstEventType)
         $.states.firstEventType = type;
 
-    if($.states.firstEventType == type && ($.states.currentContext != 'gameOver' || frameCount - $.states.start > 2))
-        $.states.shooting = true;
+    if($.states.firstEventType == type) {
+        if($.states.currentContext != 'gameOver' || frameCount - $.states.start > 2)
+            $.states.shooting = true;
+
+        if($.elements.BtnSound)
+            $.elements.BtnSound._checkClick();
+    }
 }
 
 /* Contextos */
@@ -141,15 +152,16 @@ function gamePlay() {
     $.states.points = 0;
     $.states.enemyMaxLife = 10;
 
-    $.sounds.stop('music', 'music_is_this_love');
-    $.sounds.stop('music', 'music_eternity');
-    $.sounds.play('music', 'music_eternity', {
-        setLoop: true
-    });
+    //$.sounds.stop('music', 'music_is_this_love');
+    //$.sounds.stop('music', 'music_eternity');
+    //$.sounds.play('music', 'music_eternity', {
+    //    setLoop: true
+    //});
     $.sounds.play('sound', 'seek_and_destroy');
 
     $.appendElement(new Ground());
     $.appendElement(new Placar());
+    $.appendElement(new BtnSound());
     $.appendElement(new Player());
 }
 
@@ -168,4 +180,25 @@ function gameOver() {
     });
 
     $.appendElement(new GameOver());
+}
+
+// Foco na janela
+window.onload = function() {  
+    //only fired once when app is opened
+    document.addEventListener("deviceready", focusin, false);
+    //re-open app when brought to foreground
+    document.addEventListener("resume", focusin, false);
+    //trigger when app is sent to background
+    document.addEventListener("pause", focusout, false);
+
+    function focusin() {
+        loop();
+        if(!$.data.get('mute'))
+            unmute();
+    }
+
+    function focusout() {
+        noLoop();
+        mute();
+    }
 }
