@@ -12,7 +12,8 @@ function Animation(parent, config) {
 	this.startedFrame = null;
 	//this.liveUpdate = config.liveUpdate === true;
 	this.loop = config.loop === true;
-	this.duration = (config.duration / 1000) * 60;
+	this.frameRateMode = config.mode === 'FRAMERATE';
+	this.duration = this.frameRateMode ? (config.duration / 1000) * 60 : config.duration;
 	this.ease = config.ease || 'linear';
 	this.keyframes = config.keyframes;
 
@@ -32,12 +33,14 @@ Animation.prototype._update = function() {
 	else {
 		this.timeElapsed = millis() - this.startedAt;
 		this.framesElapsed = frameCount - this.startedFrame;
-		this.percElapsed =  this.framesElapsed / this.duration;
-		this.isRunning =  this.framesElapsed < this.duration;
-		// this.timeElapsed = millis() - this.startedAt;
-		// this.framesElapsed = frameCount - this.startedFrame;
-		// this.percElapsed =  this.timeElapsed / this.duration;
-		// this.isRunning =  this.timeElapsed < this.duration;
+
+		if(this.frameRateMode) {
+			this.percElapsed =  this.framesElapsed / this.duration;
+			this.isRunning =  this.framesElapsed < this.duration;
+		} else {
+			this.percElapsed =  this.timeElapsed / this.duration;
+			this.isRunning =  this.timeElapsed < this.duration;
+		}
 	
 		this.dead = this.loop ? false : !this.isRunning;
 

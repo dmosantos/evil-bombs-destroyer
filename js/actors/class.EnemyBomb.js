@@ -18,6 +18,7 @@ function EnemyBomb() {
         this.animation = (new Animation(this, {
             duration: 10000,
             loop: true,
+            mode: 'FRAMERATE',
             keyframes: {
                 0: {
                     direction: 0
@@ -135,6 +136,7 @@ function EnemyBomb2() {
     this.animation = (new Animation(this, {
         duration: 500,
         loop: true,
+        mode: 'FRAMERATE',
         keyframes: {
             0: {
                 direction: 0,
@@ -180,6 +182,7 @@ function EnemyBomb3(lado) {
     this.animation = (new Animation(this, {
         duration: 10000,
         loop: true,
+        mode: 'FRAMERATE',
         keyframes: {
             0: {
                 direction: 0

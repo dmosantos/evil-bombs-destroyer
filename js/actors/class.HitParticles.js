@@ -10,13 +10,13 @@ function HitParticles(parent) {
 	this.diameter = 150;
 
 	this.animation = (new Animation(this, {
-		duration: 100,
+		duration: 50,
 		keyframes: {
 			0: {
 				particle: 1
 			},
 			100: {
-				particle: 10
+				particle: 5
 			}
 		}
 	})).start();
