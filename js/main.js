@@ -183,22 +183,26 @@ function gameOver() {
 }
 
 // Foco na janela
-window.onload = function() {  
-    //only fired once when app is opened
-    document.addEventListener("deviceready", focusin, false);
-    //re-open app when brought to foreground
-    document.addEventListener("resume", focusin, false);
-    //trigger when app is sent to background
-    document.addEventListener("pause", focusout, false);
+window.onload = onLoad;
 
-    function focusin() {
-        loop();
-        if(!$.data.get('mute'))
-            unmute();
-    }
+function onLoad() {
+    document.addEventListener("deviceready", onDeviceReady, false);
+}
 
-    function focusout() {
-        noLoop();
-        mute();
-    }
+// device APIs are available
+//
+function onDeviceReady() {
+    document.addEventListener("pause", onPause, false);
+    document.addEventListener("resume", onResume, false);
+}
+
+function onPause() {
+    noLoop();
+    mute();
+}
+
+function onResume() {
+    loop();
+    if(!$.data.get('mute'))
+        unmute();
 }
