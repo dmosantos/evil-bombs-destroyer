@@ -32,7 +32,7 @@ Animation.prototype._update = function() {
 		this.dead = true;
 	else {
 		this.timeElapsed = millis() - this.startedAt;
-		this.framesElapsed = frameCount - this.startedFrame;
+		this.framesElapsed = $.states.frames.count - this.startedFrame;
 
 		if(this.frameRateMode) {
 			this.percElapsed =  this.framesElapsed / this.duration;
@@ -66,7 +66,7 @@ Animation.prototype._draw = function() {
 Animation.prototype.start = function() {
 	this.started = true;
 	this.startedAt = millis();
-	this.startedFrame = frameCount;
+	this.startedFrame = $.states.frames.count;
 	this.isRunning = true;
 
 	return this;

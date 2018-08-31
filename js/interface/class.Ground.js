@@ -9,9 +9,9 @@ function Ground() {
 Ground.prototype = new Element();
 
 Ground.prototype.update = function() {
-	this.y = windowHeight - 50;
-	this.width = windowWidth;
-	this.height = windowHeight - this.y;
+	this.y = height - 50;
+	this.width = width;
+	this.height = height - this.y;
 }
 
 Ground.prototype.draw = function() {

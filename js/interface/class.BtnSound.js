@@ -1,5 +1,6 @@
 function BtnSound() {
 	Element.call(this);
+    var self = this;
 
 	this.type = 'BtnSound';
 	this.id = this.type;
@@ -9,6 +10,12 @@ function BtnSound() {
 	this.height = 30;
 
 	this.mute = $.data.get('mute');
+
+    $.events.on('click', this, {
+        middleware: function() {
+            return collidePointRect(mouseX, mouseY, self.x, self.y, self.width, self.height);
+        }
+    });
 }
 
 BtnSound.prototype = new Element();
@@ -30,7 +37,6 @@ BtnSound.prototype.draw = function() {
     textAlign(CENTER, CENTER);
     textSize(18);
     textFont(fontAwesome);
-    //text(this.mute ? char(61478) : char(61480), this.x + (this.width / 2), this.y + (this.height / 2));
     text(char(61480), this.x + (this.width / 2), this.y + (this.height / 2) - 1);
 
     if(this.mute) {

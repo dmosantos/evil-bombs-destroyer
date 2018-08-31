@@ -19,13 +19,15 @@ function GameOver() {
             self.showRecord = true;
         }, 0);
     }
+
+    $.events.on('click', this);
 }
 
 GameOver.prototype = new Element();
 
 GameOver.prototype.update = function() {
-	this.height = windowHeight;
-	this.width = windowWidth;
+	this.height = height;
+	this.width = width;
 }
 
 GameOver.prototype.draw = function() {
@@ -38,7 +40,7 @@ GameOver.prototype.draw = function() {
 
     textSize(32);
     textStyle(BOLD);
-    text('GAME OVER', (windowWidth * 0.5) - 125, this.height * 0.25, 250);
+    text('GAME OVER', (width * 0.5) - 125, this.height * 0.25, 250);
 
     textSize(18);
     textStyle(NORMAL);
@@ -52,9 +54,16 @@ GameOver.prototype.draw = function() {
                 )
                 : ''
         ) +
-        ((millis() / 1000) - $.states.start > 2 ? '\n\n\nTOQUE PARA REINICIAR' : '')
+        ($.states.frames.count - $.states.frames.start > 120 ? '\n\n\nTOQUE PARA REINICIAR' : '')
     , 0, this.height * 0.45, this.width);
 
     textSize(14);
     text('por Diego Marques', 0, this.height - 20, this.width);
+}
+
+GameOver.prototype.click = function() {
+    if($.states.frames.count - $.states.frames.start > 120) {
+        $.events.off('click', this);
+        $.contexts.show('gamePlay');
+    }
 }

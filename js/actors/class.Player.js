@@ -1,28 +1,36 @@
 function Player() {
     Element.call(this);
+    var self = this;
 
     this.type = 'Player';
     this.id = this.type;
     this.layer = 10;
 
 	this.life = 20;
-	this.x = windowWidth / 2;
-	this.y = windowHeight - 50;
+	this.x = width / 2;
+	this.y = height - 50;
 	this.width = 60;
 	this.height = 60;
     this.direction = -90;
 	this.speed = 0;
     
     this.lastShoot = null;
+
+    $.events.on('mouseMoved', this);
+    $.events.on('click', this, {
+        middleware: function() {
+            return collidePointRect(mouseX, mouseY, 0, 0, width, self.y + 10)
+        }
+    });
 }
 
 Player.prototype = new Element();
 
 Player.prototype.update = function() {
-    this.x = windowWidth / 2;
-    this.y = windowHeight - 50;
+    this.x = width / 2;
+    this.y = height - 55;
 
-    if(keyIsPressed) {
+    /*if(keyIsPressed) {
         if(keyCode === LEFT_ARROW)
             this.direction--;
         
@@ -40,14 +48,14 @@ Player.prototype.update = function() {
             ? 0
             : this.direction > 0 && this.direction >= 90
              ? 180
-             : this.direction;
+             : this.direction;*/
 
-    if($.states.shooting) {
+    /*if($.states.shooting) {
         $.sounds.play('sound', 'shoot');
         $.appendElement(new PlayerBullet());
         $.states.shooting = false;
-        this.lastShoot = frameCount;
-    }
+        this.lastShoot = $.states.frames.count;
+    }*/
 }
 
 Player.prototype.draw = function() {
@@ -55,23 +63,21 @@ Player.prototype.draw = function() {
     noStroke();
 
     // Canhão
-    translate(this.x, this.y - 5);
+    translate(this.x, this.y);
     rotate(this.direction);
-    if(frameCount - this.lastShoot <= 5) {
-        fill(255, 100);
-        arc(65, 0, 40, 20, 90, 270, CHORD);
+    if($.states.frames.count - this.lastShoot <= 4) {
+        fill(255, 80);
+        arc(55, 0, 30, 18, 90, 270, CHORD);
         fill($.config.baseColor);
         strokeWeight(2);
         stroke(255, 100);
     }
-    rect(0, -5, 50, 10, 5);
+    rect(-5, -5, 50, 10, 5);
     rotate(-this.direction);
-    translate(-this.x, -(this.y - 5));
+    translate(-this.x, -(this.y));
 
     // Corpo
-    //strokeWeight(2);
-    //stroke(0);
-    arc(this.x, this.y, this.width, this.height, 180, 0, CHORD);
+    arc(this.x, this.y + 5, this.width, this.height, 180, 0, CHORD);
 
     // Life
     fill($.config.secondColor);
@@ -79,10 +85,27 @@ Player.prototype.draw = function() {
     textAlign(CENTER, CENTER);
     textStyle(BOLD);
     textSize(16);
-    text(this.life, this.x, this.y - 10);
+    text(this.life, this.x, this.y - 5);
 
 }
 
+Player.prototype.click = function() {
+    $.sounds.play('sound', 'shoot');
+    $.appendElement(new PlayerBullet());
+    this.lastShoot = $.states.frames.count;
+}
+
+Player.prototype.mouseMoved = function() {
+    this.direction = atan2(mouseY - this.y, mouseX - this.x);
+
+    this.direction =
+        this.direction > 0 && this.direction < 90
+            ? 0
+            : this.direction > 0 && this.direction >= 90
+             ? 180
+             : this.direction;
+}
+
 Player.prototype.die = function() {
-    
+    $.contexts.change('gameOver');
 }

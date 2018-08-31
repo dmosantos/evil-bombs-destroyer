@@ -12,6 +12,7 @@ function Explosion(parent) {
 	this.animation = (new Animation(this, {
 		duration: 500,
 		//liveUpdate: true,
+		ease: 'easeOutQuad',
 		keyframes: {
 			0: {
 				diameter: 0,
@@ -56,7 +57,7 @@ Explosion.prototype.update = function() {
 }
 
 Explosion.prototype.draw = function() {
-    stroke($.config.baseColor, this.animation.get('alpha'));
+    stroke(0, this.animation.get('alpha'));
 	strokeWeight(this.animation.get('stroke'));
 	noFill();
 	ellipse(this.x, this.y, this.animation.get('diameter'), this.animation.get('diameter'));

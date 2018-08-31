@@ -10,11 +10,12 @@ function EnemyBomb() {
         this.y = -30;
         this.height = 30;
         this.width = 60;
-        this.speed = round(random(1, ($.states.enemyMaxLife - 10) / 20)) || 1;
+        this.speed = 1;
         this.direction = 90;
         this.life = round(random(1, $.states.enemyMaxLife)) || 1;
 
-        var lado = round(random(1, 2));
+        //var lado = round(random(1, 2));
+        var lado = this.x >= width / 2 ? 1 : 2;
         this.animation = (new Animation(this, {
             duration: 10000,
             loop: true,
@@ -35,6 +36,23 @@ function EnemyBomb() {
             }
         })).start();
 
+        this.animationFire = (new Animation(this, {
+            duration: 100,
+            loop: true,
+            mode: 'FRAMERATE',
+            keyframes: {
+                0: {
+                    size: 1
+                },
+                50: {
+                    size: 0.5
+                },
+                100: {
+                    size: 1
+                }
+            }
+        })).start();
+
         this.initialDirection = this.direction;
         this.lastHit = 0;
     }
@@ -48,7 +66,7 @@ EnemyBomb.prototype.update = function() {
     this.direction = this.initialDirection + this.animation.get('direction');
     
     // Verifica se bateu no chão
-    if(this.y + (this.width / 2) > $.elements.Ground.y) {
+    if(this.y + (this.width / 2) > ($.elements.Ground ? $.elements.Ground.y : height)) {
         if($.elements.Player)
             $.elements.Player._hit(this.life);
 
@@ -56,8 +74,8 @@ EnemyBomb.prototype.update = function() {
     }
 
     // Verifica colisões
-    else if($.types.PlayerBullet)
-        Object.keys($.types.PlayerBullet).forEach(function(id) {
+    else if($.by.types.PlayerBullet)
+        Object.keys($.by.types.PlayerBullet).forEach(function(id) {
             var bulletCoord = getPoint(self.x, self.y, $.elements[id].x, $.elements[id].y, -self.direction);
 
             if(collideRectCircle(self.x - (self.width / 2), self.y - (self.height / 2), self.width, self.height, bulletCoord.x, bulletCoord.y, $.elements[id].diameter)) {
@@ -71,12 +89,33 @@ EnemyBomb.prototype.draw = function() {
     translate(this.x, this.y);
     rotate(this.direction);
     translate(-(this.width / 2), -(this.height / 2));
+
+    noStroke();
     
-    if(frameCount <= this.lastHit + 1)
+    // Fogo
+    fill(255, 50);
+    beginShape();
+    
+    curveVertex(this.width * 0.2, this.height * 0.5);
+    
+    curveVertex(this.width * 0.19, this.height * 0.4 * this.animationFire.get('size'));
+    curveVertex(this.width * 0.12, this.height * 0.3 * this.animationFire.get('size'));
+    curveVertex(0, this.height * 0.4);
+    
+    curveVertex((this.width * -0.5) * random(this.animationFire.get('size'), this.animationFire.get('size') * 0.5), this.height * random(0.4, 0.6));
+
+    curveVertex(0, this.height * 0.6);
+    curveVertex(this.width * 0.12, this.height * (0.7 + 0.3 - (0.3 * this.animationFire.get('size'))));
+    curveVertex(this.width * 0.19, this.height * (0.6 + 0.4 - (0.4 * this.animationFire.get('size'))));
+
+    curveVertex(this.width * 0.2, this.height * 0.5);
+
+    endShape(CLOSE);
+    
+    if($.states.frames.count <= this.lastHit + 1)
         fill(70);
     else
         fill(this.animation.get('color') || $.config.baseColor);
-    noStroke();
     
     // Asa de cima
     beginShape();
@@ -115,7 +154,7 @@ EnemyBomb.prototype.hit = function() {
     $.sounds.play('sound', 'hit');
     $.appendElement(new HitParticles(this));
     $.states.points = $.states.points + this.life;
-    this.lastHit = frameCount;
+    this.lastHit = $.states.frames.count;
 }
 
 EnemyBomb.prototype.die = function() {
@@ -180,7 +219,7 @@ function EnemyBomb3(lado) {
     this.width = 50;
 
     this.animation = (new Animation(this, {
-        duration: 10000,
+        duration: 5000,
         loop: true,
         mode: 'FRAMERATE',
         keyframes: {

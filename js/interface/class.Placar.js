@@ -10,9 +10,9 @@ Placar.prototype = new Element();
 
 Placar.prototype.update = function() {
 	this.x = 15;
-	this.y = windowHeight;
-	this.width = windowWidth;
-	this.height = windowHeight;
+	this.y = height;
+	this.width = width;
+	this.height = height;
 }
 
 Placar.prototype.draw = function() {

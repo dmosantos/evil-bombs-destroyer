@@ -30,7 +30,7 @@ function setup() {
     if($.data.get('mute'))
         mute();
 
-    homeScreen();
+    $.contexts.show('homeScreen');
 }
 
 
@@ -38,71 +38,35 @@ function draw() {
     clear();
     background(255);
 
+    if(!$.states.pause)
+        $.states.frames.count++;
+    else
+        $.states.frames.gap++;
+
     setGradient(0, 0, width, height, $.states.background.get[$.states.background.active].topColor, $.states.background.get[$.states.background.active].bottomColor, 1);
 
-    if(typeof $.contexts[$.states.currentContext] != 'undefined') {
-        Object.keys($.contexts[$.states.currentContext]).forEach(function(layer) {
-            Object.keys($.contexts[$.states.currentContext][layer]).forEach(function(id) {
-                $.contexts[$.states.currentContext][layer][id]._update();
+    if(typeof $.by.contexts[$.by.contexts.current] != 'undefined') {
+        Object.keys($.by.contexts[$.by.contexts.current]).forEach(function(layer) {
+            Object.keys($.by.contexts[$.by.contexts.current][layer]).forEach(function(id) {
+                if(!$.states.pause)
+                    $.by.contexts[$.by.contexts.current][layer][id]._update();
                 push();
-                $.contexts[$.states.currentContext][layer][id]._draw();
+                $.by.contexts[$.by.contexts.current][layer][id]._draw();
                 pop();
             });
         });
 
         Object.keys($.elements).forEach(function(id) {
             if($.elements[id].dead) {
-                delete $.contexts[$.elements[id].context][$.elements[id].layer][id];
-                delete $.types[$.elements[id].type][id];
+                delete $.by.contexts[$.elements[id].context][$.elements[id].layer][id];
+                delete $.by.types[$.elements[id].type][id];
                 delete $.elements[id];
             }
         });
     }
 
-    switch($.states.currentContext) {
-        case 'gamePlay':
-            if(frameCount % 120 == 0 && $.elements.Player)
-                $.appendElement(new EnemyBomb());
-
-            var newEnemyMaxLife = 10 + floor((frameCount - $.states.start) / 1000);
-            if(newEnemyMaxLife != $.states.enemyMaxLife) {
-                $.states.enemyMaxLife = newEnemyMaxLife;
-                $.sounds.play('sound', 'alarm');
-                
-                var enemyBomb = new EnemyBomb2();
-                enemyBomb.life = newEnemyMaxLife;
-                $.appendElement(enemyBomb);
-            }
-
-            if(!$.elements.Player)
-                gameOver();
-            break;
-
-        case 'homeScreen':
-        case 'gameOver':
-            if($.states.shooting == true) {
-                $.states.shooting == false;
-                gamePlay();
-            }
-            break;
-    }
-
-    // Tests
-    // fill(30);
-    // noStroke();
-    // beginShape();
-    //     vertex(0, 0);
-    //     vertex(150, 0);
-    //     vertex(150, 150);
-    //     vertex(0, 150);
-    //     beginContour();
-    //         vertex(50, 50);
-    //         vertex(50, 100);
-    //         vertex(100, 100);
-    //         vertex(100, 50);
-    //     endContour();
-    // endShape();
-    // pop();
+    if(!$.states.pause)
+        $.contexts.update();
 }
 
 function windowResized() {
@@ -110,98 +74,54 @@ function windowResized() {
 }
 
 function mousePressed(e) {
+    $.events.trigger('mouseMoved');
     fire(e.type);
 }
 
 function touchStarted(e) {
+    $.events.trigger('mouseMoved');
     fire(e.type);
+}
+
+function mouseMoved() {
+    $.events.trigger('mouseMoved');
 }
 
 function fire(type) {
     if(!$.states.firstEventType)
         $.states.firstEventType = type;
 
-    if($.states.firstEventType == type) {
-        if($.states.currentContext != 'gameOver' || frameCount - $.states.start > 2)
-            $.states.shooting = true;
-
-        if($.elements.BtnSound)
-            $.elements.BtnSound._checkClick();
-    }
-}
-
-/* Contextos */
-
-// Tela inicial
-function homeScreen() {
-    $.states.start = frameCount;
-    $.states.currentContext = 'homeScreen';
-
-    $.sounds.play('music', 'music_is_this_love', {
-        setLoop: true
-    });
-
-    $.appendElement(new HomeScreen());
-}
-
-// Gameplay
-function gamePlay() {
-    $.states.start = frameCount;
-    $.states.shooting = false;
-    $.states.currentContext = 'gamePlay';
-    $.states.points = 0;
-    $.states.enemyMaxLife = 10;
-
-    //$.sounds.stop('music', 'music_is_this_love');
-    //$.sounds.stop('music', 'music_eternity');
-    //$.sounds.play('music', 'music_eternity', {
-    //    setLoop: true
-    //});
-    $.sounds.play('sound', 'seek_and_destroy');
-
-    $.appendElement(new Ground());
-    $.appendElement(new Placar());
-    $.appendElement(new BtnSound());
-    $.appendElement(new Player());
-}
-
-// Game Over
-function gameOver() {
-    $.states.start = millis() / 1000;
-    $.states.shooting = false;
-    $.states.currentContext = 'gameOver';
-
-    $.sounds.play('sound', 'game_over');
-
-    Object.keys($.contexts.gamePlay).forEach(function(layer) {
-        Object.keys($.contexts.gamePlay[layer]).forEach(function(id) {
-            $.contexts.gamePlay[layer][id].dead = true;
-        });
-    });
-
-    $.appendElement(new GameOver());
+    if($.states.firstEventType == type)
+        $.events.trigger('click');
 }
 
 // Foco na janela
-window.onload = onLoad;
+if (window.addEventListener)
+    window.addEventListener('load', onLoad, false);
+else if (window.attachEvent)
+    window.attachEvent('onload', onLoad);
 
 function onLoad() {
+    //l('onLoad');
     document.addEventListener("deviceready", onDeviceReady, false);
 }
 
 // device APIs are available
 //
 function onDeviceReady() {
+    //l('onDeviceReady');
     document.addEventListener("pause", onPause, false);
     document.addEventListener("resume", onResume, false);
 }
 
 function onPause() {
+    //l('onPause');
     noLoop();
     mute();
 }
 
 function onResume() {
+    //l('onResume');
     loop();
     if(!$.data.get('mute'))
         unmute();

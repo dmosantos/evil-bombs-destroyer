@@ -11,7 +11,12 @@ function Core() {
 
 	// States Control
 	this.states = {
-		start: 0,
+		frames: {
+			start: 0,
+			count: 0,
+			gap: 0
+		},
+		pause: false,
 		background: {
 	        active: 'base',
 	        get: {
@@ -26,38 +31,38 @@ function Core() {
 	        }
 	    },
 	    firstEventType: null,
-		shooting: false,
-		currentContext: 'preload',
 		points: 0,
 		enemyMaxLife: 10
 	}
 
-	// Sounds
+	// Objects
 	this.sounds = new Sounds();
-
-	// Data
 	this.data = new LocalStorageData();
+	this.events = new Events();
+	this.contexts = new Contexts();
 
 	// Elements lists
 	this.elements = {};
-	this.types = {};
-	this.contexts = {};
+	this.by = {
+		types: {},
+		contexts: {}
+	}
 }
 
 Core.prototype.appendElement = function(element) {
 
-	if(typeof $.types[element.type] == 'undefined')
-		$.types[element.type] = {}
+	if(typeof $.by.types[element.type] == 'undefined')
+		$.by.types[element.type] = {}
 
-	if(typeof $.contexts[element.context] == 'undefined')
-		$.contexts[element.context] = {}
+	if(typeof $.by.contexts[element.context] == 'undefined')
+		$.by.contexts[element.context] = {}
 
-	if(typeof $.contexts[element.context][element.layer] == 'undefined')
-		$.contexts[element.context][element.layer] = {}
+	if(typeof $.by.contexts[element.context][element.layer] == 'undefined')
+		$.by.contexts[element.context][element.layer] = {}
 
 	$.elements[element.id] = element;
-	$.types[element.type][element.id] = $.elements[element.id];
-	$.contexts[element.context][element.layer][element.id] = $.elements[element.id];
+	$.by.types[element.type][element.id] = $.elements[element.id];
+	$.by.contexts[element.context][element.layer][element.id] = $.elements[element.id];
 }
 
 Core.prototype.get = function(id) {
