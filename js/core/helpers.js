@@ -38,44 +38,44 @@ function getPoint(mx, my, cx, cy, angle) {
 }
 
 function angleBetween(p1x, p1y, p2x, p2y) {
-	return atan2(p2y - p1y, p2x - p1x);
+    return atan2(p2y - p1y, p2x - p1x);
 }
 
 function setGradient(x, y, w, h, c1, c2, axis) {
-  noFill();
+    noFill();
 
-  if (axis == 1) {  // Top to bottom gradient
-    for (var i = y; i <= y+h; i++) {
-      var inter = map(i, y, y+h, 0, 1);
-      var c = lerpColor(c1, c2, inter);
-      stroke(c);
-      line(x, i, x+w, i);
+    if (axis == 1) {  // Top to bottom gradient
+        for (var i = y; i <= y+h; i++) {
+            var inter = map(i, y, y+h, 0, 1);
+            var c = lerpColor(c1, c2, inter);
+            stroke(c);
+            line(x, i, x+w, i);
+        }
+    }  
+    else if (axis == 2) {  // Left to right gradient
+        for (var i = x; i <= x+w; i++) {
+            var inter = map(i, x, x+w, 0, 1);
+            var c = lerpColor(c1, c2, inter);
+            stroke(c);
+            line(i, y, i, y+h);
+        }
     }
-  }  
-  else if (axis == 2) {  // Left to right gradient
-    for (var i = x; i <= x+w; i++) {
-      var inter = map(i, x, x+w, 0, 1);
-      var c = lerpColor(c1, c2, inter);
-      stroke(c);
-      line(i, y, i, y+h);
-    }
-  }
 }
 
 var EasingFunctions = {
-	linear: function (t) { return t },
-	easeInQuad: function (t) { return t*t },
-	easeOutQuad: function (t) { return t*(2-t) },
-	easeInOutQuad: function (t) { return t<.5 ? 2*t*t : -1+(4-2*t)*t },
-	easeInCubic: function (t) { return t*t*t },
-	easeOutCubic: function (t) { return (--t)*t*t+1 },
-	easeInOutCubic: function (t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 },
-	easeInQuart: function (t) { return t*t*t*t },
-	easeOutQuart: function (t) { return 1-(--t)*t*t*t },
-	easeInOutQuart: function (t) { return t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t },
-	easeInQuint: function (t) { return t*t*t*t*t },
-	easeOutQuint: function (t) { return 1+(--t)*t*t*t*t },
-	easeInOutQuint: function (t) { return t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t }
+    linear: function (t) { return t },
+    easeInQuad: function (t) { return t*t },
+    easeOutQuad: function (t) { return t*(2-t) },
+    easeInOutQuad: function (t) { return t<.5 ? 2*t*t : -1+(4-2*t)*t },
+    easeInCubic: function (t) { return t*t*t },
+    easeOutCubic: function (t) { return (--t)*t*t+1 },
+    easeInOutCubic: function (t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 },
+    easeInQuart: function (t) { return t*t*t*t },
+    easeOutQuart: function (t) { return 1-(--t)*t*t*t },
+    easeInOutQuart: function (t) { return t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t },
+    easeInQuint: function (t) { return t*t*t*t*t },
+    easeOutQuint: function (t) { return 1+(--t)*t*t*t*t },
+    easeInOutQuint: function (t) { return t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t }
 }
 
 function l(x) {
@@ -89,4 +89,27 @@ function p(color) {
 	stroke(0);
 
     arc(0, 0, 10, 10, 360, 0, CHORD);
+}
+
+function wallBounce(directionAngle, wallAngle) {
+    wallAngle = wallAngle % 360;
+    if(wallAngle < 0)
+        wallAngle += 360;
+
+    directionAngle = directionAngle % 360;
+    if(directionAngle < 0)
+        directionAngle += 360;
+
+    var wallDiff = 360 - wallAngle;
+    wallAngle = 0;
+
+    directionAngle = (directionAngle + wallDiff) % 360;
+
+    var bouncedAngle = directionAngle - ((directionAngle - 180) * 2);
+
+    var r = (bouncedAngle - wallDiff) % 360;
+    if(r < 0)
+        r += 360;
+
+    return r;
 }

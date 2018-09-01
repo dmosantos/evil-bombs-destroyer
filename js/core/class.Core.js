@@ -32,7 +32,13 @@ function Core() {
 	    },
 	    firstEventType: null,
 		points: 0,
-		enemyMaxLife: 10
+		enemyMaxLife: 10,
+		upgrades: {
+			auto: true,
+			multi: false,
+			precision: false,
+			bounce: false
+		}
 	}
 
 	// Objects

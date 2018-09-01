@@ -12,6 +12,7 @@ function BtnSound() {
 	this.mute = $.data.get('mute');
 
     $.events.on('click', this, {
+        triggerOnPause: true,
         middleware: function() {
             return collidePointRect(mouseX, mouseY, self.x, self.y, self.width, self.height);
         }

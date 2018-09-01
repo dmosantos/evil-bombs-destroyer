@@ -8,6 +8,7 @@ function HomeScreen() {
     this.recordName = $.data.get('recordName');
 
     $.events.on('click', this);
+    $.events.on('keyPressed', this);
 }
 
 HomeScreen.prototype = new Element();
@@ -54,4 +55,8 @@ HomeScreen.prototype.click = function() {
     $.events.off('click', this);
     this.dead = true;
     $.contexts.show('gamePlay');
+}
+
+HomeScreen.prototype.keyPressed = function() {
+    this.click();
 }

@@ -20,13 +20,13 @@ Events.prototype.off = function(type, obj) {
     });
 }
 
-Events.prototype.trigger = function(type) {
+Events.prototype.trigger = function(type, param) {
     if(this.listeners[type]) {
         var self = this;
         this.listeners[type].forEach(function(event) {
             if(!event.obj.dead && (!$.states.pause || event.config.triggerOnPause)) {
                 if(event.config.middleware ? event.config.middleware() : true)
-                    event.obj[event.config.call || type]();
+                    event.obj[event.config.call || type](param);
             }
         });
     }

@@ -87,6 +87,14 @@ function mouseMoved() {
     $.events.trigger('mouseMoved');
 }
 
+function keyPressed() {
+    $.events.trigger('keyPressed', keyCode);
+}
+
+function keyReleased() {
+    $.events.trigger('keyReleased', keyCode);
+}
+
 function fire(type) {
     if(!$.states.firstEventType)
         $.states.firstEventType = type;
