@@ -34,7 +34,7 @@ function Core() {
 		points: 0,
 		enemyMaxLife: 10,
 		upgrades: {
-			auto: true,
+			auto: false,
 			multi: false,
 			precision: false,
 			bounce: false
