@@ -56,6 +56,10 @@ Contexts.prototype.gamePlay = {
         $.appendElement(new Placar());
         $.appendElement(new BtnSound());
         $.appendElement(new BtnPause());
+        $.appendElement(new BtnPowerUpAuto());
+        //$.appendElement(new BtnPowerUpMulti());
+        //$.appendElement(new BtnPowerUpPrecision());
+        //$.appendElement(new BtnPowerUpBounce());
         $.appendElement(new Player());
     },
     update: function() {

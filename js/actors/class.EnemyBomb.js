@@ -153,7 +153,7 @@ EnemyBomb.prototype.draw = function() {
 EnemyBomb.prototype.hit = function() {
     $.sounds.play('sound', 'hit');
     $.appendElement(new HitParticles(this));
-    $.states.points = $.states.points + this.life;
+    $.states.points = $.states.points + this.life + 1;
     this.lastHit = $.states.frames.count;
 }
 

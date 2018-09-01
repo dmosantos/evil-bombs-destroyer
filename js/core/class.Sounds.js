@@ -24,7 +24,8 @@ Sounds.prototype.set = function(type, file, options) {
 
 	if(typeof options != 'undefined')
 		Object.keys(options).forEach(function(option) {
-			self.files[type][file][option](options[option]);
+			if(self.files[type][file])
+                self.files[type][file][option](options[option]);
 		});
 }
 
@@ -44,7 +45,8 @@ Sounds.prototype.play = function(type, file, options) {
 
 	this.applyConfig();
 
-	this.files[type][file].play();
+	if(this.files[type][file])
+        this.files[type][file].play();
 }
 
 Sounds.prototype.pause = function(type, file) {

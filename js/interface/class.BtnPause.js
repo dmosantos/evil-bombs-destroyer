@@ -35,8 +35,9 @@ BtnPause.prototype.draw = function() {
     noStroke();
     textAlign(CENTER, CENTER);
     textSize(18);
-    textFont(fontAwesome);
-    text(char(!$.states.pause ? 61516 : 61515), this.x + (this.width / 2), this.y + (this.height / 2) - 1);
+    //textFont(fontAwesome);
+    //text(char(!$.states.pause ? 61516 : 61515), this.x + (this.width / 2), this.y + (this.height / 2) - 1);
+    text(!$.states.pause ? 'P' : 'P', this.x + (this.width / 2), this.y + (this.height / 2) - 1);
 }
 
 BtnPause.prototype.click = function() {

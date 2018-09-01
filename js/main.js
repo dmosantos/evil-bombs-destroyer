@@ -17,10 +17,10 @@ function preload() {
         ['sound', 'hit.mp3'],
         ['sound', 'game-over.mp3']
     ].forEach(function(file) {
-        $.sounds.load(file[0], file[1]);
+        //$.sounds.load(file[0], file[1]);
     });
 
-    fontAwesome = loadFont('fonts/FontAwesome.otf');
+    //fontAwesome = loadFont('fonts/FontAwesome.otf');
 }
 
 function setup() {

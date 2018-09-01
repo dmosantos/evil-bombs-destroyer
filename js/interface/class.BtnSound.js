@@ -37,8 +37,9 @@ BtnSound.prototype.draw = function() {
     noStroke();
     textAlign(CENTER, CENTER);
     textSize(18);
-    textFont(fontAwesome);
-    text(char(61480), this.x + (this.width / 2), this.y + (this.height / 2) - 1);
+    //textFont(fontAwesome);
+    //text(char(61480), this.x + (this.width / 2), this.y + (this.height / 2) - 1);
+    text('S', this.x + (this.width / 2), this.y + (this.height / 2) - 1);
 
     if(this.mute) {
     	stroke($.config.secondColor);

@@ -16,12 +16,12 @@ Placar.prototype.update = function() {
 }
 
 Placar.prototype.draw = function() {
-    fill($.config.secondColor);
+    fill($.config.baseColor);
     noStroke();
 
     textAlign(LEFT, CENTER);
 
     textSize(18);
     textStyle(BOLD);
-    text('Pontuação: ' + $.states.points, this.x, this.y - 25);
+    text('Score: ' + $.states.points, this.x, 25);
 }
