@@ -93,6 +93,10 @@ function mouseMoved() {
     $.events.trigger('mouseMoved');
 }
 
+function touchMoved() {
+    $.events.trigger('mouseMoved');
+}
+
 function keyPressed() {
     $.events.trigger('keyPressed', keyCode);
 }
