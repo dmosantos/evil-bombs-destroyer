@@ -16,7 +16,7 @@ Placar.prototype.update = function() {
 }
 
 Placar.prototype.draw = function() {
-    fill($.config.baseColor);
+    fill($.config.secondColor);
     noStroke();
 
     textAlign(LEFT, CENTER);

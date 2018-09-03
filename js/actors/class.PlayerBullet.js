@@ -9,7 +9,7 @@ function PlayerBullet() {
 	this.x = $.elements.Player.x + (cos(this.direction) * 35);
 	this.y = $.elements.Player.y + (sin(this.direction) * 35);
 	this.diameter = 10;
-	this.speed = $.states.upgrades.precision ? 30 : 10;
+	this.speed = $.upgrades.precision.active ? 30 : 10;
 
 	this.start = $.states.frames.count;
 }
@@ -18,7 +18,7 @@ PlayerBullet.prototype = new Element();
 
 PlayerBullet.prototype.update = function() {
 
-	if($.states.upgrades.bounce) {
+	if($.upgrades.bounce.active) {
 		if(this.y - (this.diameter / 2) > height - 50)
 			this.direction = wallBounce(this.direction, 0);
 

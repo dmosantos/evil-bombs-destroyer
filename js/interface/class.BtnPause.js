@@ -6,8 +6,8 @@ function BtnPause() {
 	this.id = this.type;
 	this.layer = 20;
 
-	this.width = 30;
-	this.height = 30;
+	this.width = 49;
+	this.height = 50;
 
     $.events.on('click', this, {
         triggerOnPause: true,
@@ -20,24 +20,23 @@ function BtnPause() {
 BtnPause.prototype = new Element();
 
 BtnPause.prototype.update = function() {
-	this.x = width - 80;
-	this.y = height - 40;
+	this.x = width - 100;
+	this.y = height - 50;
 }
 
 BtnPause.prototype.draw = function() {
     noFill();
-    strokeWeight(2);
-    stroke($.config.secondColor);
+    strokeWeight(1);
+    stroke($.config.secondColor, 50);
 
-    rect(this.x, this.y, this.width, this.height, 4);
+    line(this.x, this.y, this.x, this.y + this.height);
 
     fill($.config.secondColor);
     noStroke();
     textAlign(CENTER, CENTER);
     textSize(18);
-    //textFont(fontAwesome);
-    //text(char(!$.states.pause ? 61516 : 61515), this.x + (this.width / 2), this.y + (this.height / 2) - 1);
-    text(!$.states.pause ? 'P' : 'P', this.x + (this.width / 2), this.y + (this.height / 2) - 1);
+    textFont(fontAwesome);
+    text(char(!$.states.pause ? 61516 : 61515), this.x + (this.width / 2), this.y + (this.height / 2) - 1);
 }
 
 BtnPause.prototype.click = function() {

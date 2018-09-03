@@ -1,4 +1,5 @@
 var fontAwesome;
+var fontBase;
 
 function preload() {
     $ = new Core();
@@ -15,12 +16,16 @@ function preload() {
         ['sound', 'seek-and-destroy.mp3'],
         ['sound', 'shoot.mp3'],
         ['sound', 'hit.mp3'],
-        ['sound', 'game-over.mp3']
+        ['sound', 'game-over.mp3'],
+        ['sound', 'upgrade-ready.mp3'],
+        ['sound', 'upgrade-level-up.mp3'],
+        ['sound', 'upgrade-start.mp3']
     ].forEach(function(file) {
-        //$.sounds.load(file[0], file[1]);
+        $.sounds.load(file[0], file[1]);
     });
 
-    //fontAwesome = loadFont('fonts/FontAwesome.otf');
+    fontAwesome = loadFont('fonts/FontAwesome.otf');
+    fontBase = loadFont('fonts/RobotoMono-Bold.ttf');
 }
 
 function setup() {
@@ -51,6 +56,7 @@ function draw() {
                 if(!$.states.pause)
                     $.by.contexts[$.by.contexts.current][layer][id]._update();
                 push();
+                textFont(fontBase);
                 $.by.contexts[$.by.contexts.current][layer][id]._draw();
                 pop();
             });

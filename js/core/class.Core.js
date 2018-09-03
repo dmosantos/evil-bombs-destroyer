@@ -5,8 +5,8 @@ function Core() {
 
 	// Config
 	this.config = {
-        baseColor: color(0),
-        secondColor: color(255)
+        baseColor: 0,
+        secondColor: 255
     }
 
 	// States Control
@@ -32,13 +32,7 @@ function Core() {
 	    },
 	    firstEventType: null,
 		points: 0,
-		enemyMaxLife: 10,
-		upgrades: {
-			auto: false,
-			multi: false,
-			precision: false,
-			bounce: false
-		}
+		enemyMaxLife: 10
 	}
 
 	// Objects
@@ -46,6 +40,7 @@ function Core() {
 	this.data = new LocalStorageData();
 	this.events = new Events();
 	this.contexts = new Contexts();
+	this.upgrades = new Upgrades();
 
 	// Elements lists
 	this.elements = {};

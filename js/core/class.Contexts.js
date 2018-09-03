@@ -44,6 +44,7 @@ Contexts.prototype.gamePlay = {
         $.by.contexts.current = 'gamePlay';
         $.states.points = 0;
         $.states.enemyMaxLife = 10;
+        $.upgrades.reset();
 
         //$.sounds.stop('music', 'music_is_this_love');
         //$.sounds.stop('music', 'music_eternity');
@@ -57,9 +58,10 @@ Contexts.prototype.gamePlay = {
         $.appendElement(new BtnSound());
         $.appendElement(new BtnPause());
         $.appendElement(new BtnPowerUpAuto());
-        //$.appendElement(new BtnPowerUpMulti());
-        //$.appendElement(new BtnPowerUpPrecision());
-        //$.appendElement(new BtnPowerUpBounce());
+        $.appendElement(new BtnPowerUpMulti());
+        $.appendElement(new BtnPowerUpPrecision());
+        $.appendElement(new BtnPowerUpBounce());
+        //$.appendElement(new BtnPowerUpMissiles());
         $.appendElement(new Player());
     },
     update: function() {

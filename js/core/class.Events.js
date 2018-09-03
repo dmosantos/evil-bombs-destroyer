@@ -1,4 +1,4 @@
-/* SOUND */
+/* EVENTS */
 function Events() {
     this.listeners = {}
 }

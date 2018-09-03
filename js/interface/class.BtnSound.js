@@ -6,8 +6,8 @@ function BtnSound() {
 	this.id = this.type;
 	this.layer = 20;
 
-	this.width = 30;
-	this.height = 30;
+	this.width = 49;
+	this.height = 50;
 
 	this.mute = $.data.get('mute');
 
@@ -22,29 +22,32 @@ function BtnSound() {
 BtnSound.prototype = new Element();
 
 BtnSound.prototype.update = function() {
-	this.x = width - 40;
-	this.y = height - 40;
+	this.x = width - 50;
+	this.y = height - 50;
 }
 
 BtnSound.prototype.draw = function() {
     noFill();
-    strokeWeight(2);
-    stroke($.config.secondColor);
+    strokeWeight(1);
+    stroke($.config.secondColor, 50);
 
-    rect(this.x, this.y, this.width, this.height, 4);
+    line(this.x, this.y, this.x, this.y + this.height);
 
     fill($.config.secondColor);
     noStroke();
     textAlign(CENTER, CENTER);
     textSize(18);
-    //textFont(fontAwesome);
-    //text(char(61480), this.x + (this.width / 2), this.y + (this.height / 2) - 1);
-    text('S', this.x + (this.width / 2), this.y + (this.height / 2) - 1);
+    textFont(fontAwesome);
+    text(char(61480), this.x + (this.width / 2), this.y + (this.height / 2) - 1);
 
     if(this.mute) {
+        noFill();
     	stroke($.config.secondColor);
-    	strokeWeight(2);
-    	line(this.x + 2, this.y + this.height - 2, this.x + this.width - 2, this.y + 2);
+    	strokeWeight(3);
+        translate(this.x + (this.width / 2), this.y + (this.height / 2));
+        rotate(-45);
+    	line(-((this.width * 0.6) / 2) + 2, 0, ((this.width * 0.6) / 2) - 2, 0);
+        ellipse(0, 0, this.width * 0.6, this.height * 0.6);
     }
 }
 

@@ -45,7 +45,7 @@ Element.prototype._die = function() {
 
 Element.prototype._hit = function(damage) {
     if(damage)
-        this.life = this.life - damage;
+        this.life = this.life - damage < 0 ? 0 : this.life - damage;
 
     if(this.life <= 0) {
         this._die();

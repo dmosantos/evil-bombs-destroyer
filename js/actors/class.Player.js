@@ -27,7 +27,7 @@ function Player() {
     $.events.on('keyReleased', this);
     $.events.on('click', this, {
         middleware: function() {
-            return collidePointRect(mouseX, mouseY, 0, 0, width, self.y + 10)
+            return collidePointRect(mouseX, mouseY, 0, 0, width, self.y + 5)
         }
     });
 }
@@ -41,7 +41,7 @@ Player.prototype.update = function() {
     if(this.key.left || this.key.right)
         this.mouseMoved();
 
-    if($.states.upgrades.auto && $.states.frames.count - this.lastShoot >= 5)
+    if($.upgrades.auto.active && $.states.frames.count - this.lastShoot >= 5)
         this.click();
 }
 
@@ -58,11 +58,11 @@ Player.prototype.draw = function() {
         strokeWeight(2);
         stroke(255, 100);
     }
-    if($.states.upgrades.precision) {
+    if($.upgrades.precision.active) {
         fill(255, 50);
         rect(-5, 0, 3000, 1);
     }
-    fill($.config.baseColor);
+    fill(this.hitStart ? color(180, 0, 0) : $.config.baseColor);
     rect(-5, -5, 50, 10, 5);
     rotate(-this.direction);
     translate(-this.x, -(this.y));
@@ -76,8 +76,19 @@ Player.prototype.draw = function() {
     textAlign(CENTER, CENTER);
     textStyle(BOLD);
     textSize(16);
-    text(this.life, this.x, this.y - 5);
+    text(this.life, this.x, this.y - 8);
 
+    // Hit
+    if(this.hitStart && $.states.frames.count - this.hitStart < 5) {
+        fill(255, 0, 0, 150);
+        rect(0, 0, width, height);
+    }
+    else
+        this.hitStart = 0;
+}
+
+Player.prototype.hit = function() {
+    this.hitStart = $.states.frames.count;
 }
 
 Player.prototype.click = function() {
@@ -85,7 +96,7 @@ Player.prototype.click = function() {
 
     var b1 = new PlayerBullet();
 
-    if($.states.upgrades.multi) {
+    if($.upgrades.multi.active) {
         var b2 = new PlayerBullet();
         var b3 = new PlayerBullet();
 

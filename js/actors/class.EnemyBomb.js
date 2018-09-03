@@ -13,6 +13,7 @@ function EnemyBomb() {
         this.speed = 1;
         this.direction = 90;
         this.life = round(random(1, $.states.enemyMaxLife)) || 1;
+        this.initialLife = this.life;
 
         //var lado = round(random(1, 2));
         var lado = this.x >= width / 2 ? 1 : 2;
@@ -55,6 +56,7 @@ function EnemyBomb() {
 
         this.initialDirection = this.direction;
         this.lastHit = 0;
+        this.upgrade = Object.keys($.upgrades)[floor(random(0, Object.keys($.upgrades).length))];
     }
 }
 
@@ -139,12 +141,22 @@ EnemyBomb.prototype.draw = function() {
     // Asa do meio
     rect(0, this.height * 0.45, this.width * 0.4, this.height * 0.1);
 
-    // Life
-    translate(this.width * 0.65, this.height / 2);
-    rotate(-this.direction);
-    fill($.config.secondColor);
+    // Upgrade
+    fill($.config.secondColor, 150);
     noStroke();
+    textFont(fontAwesome);
     textAlign(CENTER, CENTER);
+    textSize(11);
+    text(char($.upgrades[this.upgrade].label), this.width * 0.80, (this.height / 2) - 1);
+
+    // Life
+    fill($.config.secondColor);
+    //stroke($.config.secondColor);
+    strokeWeight(1);
+    translate(this.width * 0.5, this.height / 2);
+    //rotate(-this.direction);
+    rotate(-90);
+    textFont(fontBase);
     textStyle(BOLD);
     textSize(16);
     text(this.life, 0, 0);
@@ -155,10 +167,17 @@ EnemyBomb.prototype.hit = function() {
     $.appendElement(new HitParticles(this));
     $.states.points = $.states.points + this.life + 1;
     this.lastHit = $.states.frames.count;
+
+    $.upgrades.addEnergy(this.upgrade, this.life + 1);
 }
 
 EnemyBomb.prototype.die = function() {
     $.appendElement(new Explosion(this));
+
+    $.upgrades.addXP(this.upgrade, this.initialLife);
+
+    if(this.childrenDie)
+        this.childrenDie();
 }
 
 
@@ -195,9 +214,7 @@ function EnemyBomb2() {
 
 EnemyBomb2.prototype = new EnemyBomb();
 
-EnemyBomb2.prototype.die = function() {
-    $.appendElement(new Explosion(this));
-    
+EnemyBomb2.prototype.childrenDie = function() {
     var bomb1 = new EnemyBomb3(1);
     var bomb2 = new EnemyBomb3(2);
 
