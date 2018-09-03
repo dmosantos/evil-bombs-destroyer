@@ -2,12 +2,12 @@
 <widget
     xmlns="http://www.w3.org/ns/widgets"
     xmlns:gap="http://phonegap.com/ns/1.0"
-    id="org.diegomarques.mymoneyapp"
+    id="com.estudionos.evilbombsdestroyer"
     version="1.0.0">
 
     <name>Evil Bombs Destroyer</name>
-    <description>By Diego Marques - http://github.com/dmosantos - dmosantos@gmail.com</description>
-    <author href="http://diegomarques.eti.br" email="dmosantos@gmail.com">Diego Marques</author>
+    <description>By Estúdio Nós - http://github.com/dmosantos - dmosantos@gmail.com</description>
+    <author href="http://estudionos.com.br" email="dmosantos@gmail.com">Estúdio Nós</author>
     <icon src="icon.png" />
 
     <preference name="orientation" value="portrait" />
