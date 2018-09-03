@@ -13,7 +13,7 @@ function GameOver() {
         this.showRecord = false;
         setTimeout(function() {
             self.record = $.states.points;
-            self.recordName = (prompt('NOVO RECORDE!\n\nSeu nome:') || 'Anônimo').substr(0, 20);
+            self.recordName = (prompt('NOVO RECORDE!\n\nSeu nome:') || 'Anonymous').substr(0, 20);
             $.data.set('record', self.record);
             $.data.set('recordName', self.recordName);
             self.showRecord = true;
@@ -45,20 +45,20 @@ GameOver.prototype.draw = function() {
     textSize(18);
     textStyle(NORMAL);
     text(
-        'PONTOS: ' + String($.states.points) + '\n\n\n' +
+        'SCORE: ' + String($.states.points) + '\n\n\n' +
         (
             this.showRecord
                 ? (
-                    ($.states.points >= this.record ? 'NOVO RECORDE!' : 'RECORDE') + '\n' +
+                    ($.states.points >= this.record ? 'NEW RECORD!' : 'RECORD') + '\n' +
                     this.recordName + ': ' + String(this.record)
                 )
                 : ''
         ) +
-        ($.states.frames.count - $.states.frames.start > 120 ? '\n\n\nTOQUE PARA REINICIAR' : '')
+        ($.states.frames.count - $.states.frames.start > 120 ? '\n\n\nTOUCH TO RESTART' : '')
     , 0, this.height * 0.45, this.width);
 
     textSize(14);
-    text('por Diego Marques', 0, this.height - 20, this.width);
+    text('by Diego Marques', 0, this.height - 20, this.width);
 }
 
 GameOver.prototype.click = function() {

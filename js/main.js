@@ -1,12 +1,16 @@
 var fontAwesome;
 var fontBase;
+var gameReady = false;
 
 function preload() {
+}
+
+function setup() {
     $ = new Core();
 
     soundFormats('mp3');
 
-    [
+    var soundFiles = [
         ['music', 'music-is-this-love.mp3'],
         ['sound', 'explosion-1.mp3'],
         ['sound', 'explosion-2.mp3'],
@@ -20,22 +24,33 @@ function preload() {
         ['sound', 'upgrade-ready.mp3'],
         ['sound', 'upgrade-level-up.mp3'],
         ['sound', 'upgrade-start.mp3']
-    ].forEach(function(file) {
-        $.sounds.load(file[0], file[1]);
+    ];
+
+    var total = 2 + soundFiles.length,
+        done = 0;
+
+    soundFiles.forEach(function(file) {
+        $.sounds.load(file[0], file[1], ready);
     });
 
-    fontAwesome = loadFont('fonts/FontAwesome.otf');
-    fontBase = loadFont('fonts/RobotoMono-Bold.ttf');
-}
+    fontAwesome = loadFont('fonts/FontAwesome.otf', ready);
+    fontBase = loadFont('fonts/RobotoMono-Bold.ttf', ready);
 
-function setup() {
+    function ready(x) {
+        done++;
+
+        if(done == total) {
+            gameReady = true;
+            $.contexts.show('homeScreen');
+        }
+    }
+
     createCanvas(windowWidth, windowHeight);
     angleMode(DEGREES);
 
     if($.data.get('mute'))
         mute();
 
-    $.contexts.show('homeScreen');
 }
 
 
@@ -43,36 +58,48 @@ function draw() {
     clear();
     background(255);
 
-    if(!$.states.pause)
-        $.states.frames.count++;
-    else
-        $.states.frames.gap++;
+    if(gameReady) {
 
-    setGradient(0, 0, width, height, $.states.background.get[$.states.background.active].topColor, $.states.background.get[$.states.background.active].bottomColor, 1);
+        if(!$.states.pause)
+            $.states.frames.count++;
+        else
+            $.states.frames.gap++;
 
-    if(typeof $.by.contexts[$.by.contexts.current] != 'undefined') {
-        Object.keys($.by.contexts[$.by.contexts.current]).forEach(function(layer) {
-            Object.keys($.by.contexts[$.by.contexts.current][layer]).forEach(function(id) {
-                if(!$.states.pause)
-                    $.by.contexts[$.by.contexts.current][layer][id]._update();
-                push();
-                textFont(fontBase);
-                $.by.contexts[$.by.contexts.current][layer][id]._draw();
-                pop();
+        if($.contexts.current == 'gamePlay')
+            setGradient(0, 0, width, height, $.states.background.get[$.states.background.active].topColor, $.states.background.get[$.states.background.active].bottomColor, 1);
+
+        if(typeof $.by.contexts[$.by.contexts.current] != 'undefined') {
+            Object.keys($.by.contexts[$.by.contexts.current]).forEach(function(layer) {
+                Object.keys($.by.contexts[$.by.contexts.current][layer]).forEach(function(id) {
+                    if(!$.states.pause)
+                        $.by.contexts[$.by.contexts.current][layer][id]._update();
+                    push();
+                    textFont(fontBase);
+                    $.by.contexts[$.by.contexts.current][layer][id]._draw();
+                    pop();
+                });
             });
-        });
 
-        Object.keys($.elements).forEach(function(id) {
-            if($.elements[id].dead) {
-                delete $.by.contexts[$.elements[id].context][$.elements[id].layer][id];
-                delete $.by.types[$.elements[id].type][id];
-                delete $.elements[id];
-            }
-        });
+            Object.keys($.elements).forEach(function(id) {
+                if($.elements[id].dead) {
+                    delete $.by.contexts[$.elements[id].context][$.elements[id].layer][id];
+                    delete $.by.types[$.elements[id].type][id];
+                    delete $.elements[id];
+                }
+            });
+        }
+
+        if(!$.states.pause)
+            $.contexts.update();
+
+    } else {
+        fill(0);
+        rect(0, 0, width, height);
+        fill(255);
+        textAlign(CENTER, CENTER);
+        textSize(18);
+        text('LOADING...', width / 2, height / 2);
     }
-
-    if(!$.states.pause)
-        $.contexts.update();
 }
 
 function windowResized() {

@@ -34,11 +34,11 @@ HomeScreen.prototype.draw = function() {
         textSize(18);
         textStyle(NORMAL);
         text(
-            'Toque para iniciar' +
+            'Touch to start' +
             (
                 this.record
                     ? (
-                        '\n\n\nRECORDE' + '\n' +
+                        '\n\n\nRECORD' + '\n' +
                         this.recordName + ': ' + String(this.record)
                     )
                     : ''
@@ -48,7 +48,7 @@ HomeScreen.prototype.draw = function() {
 
     textSize(14);
     textStyle(NORMAL);
-    text('por Diego Marques', 0, this.height - 20, this.width);
+    text('by Diego Marques', 0, this.height - 20, this.width);
 }
 
 HomeScreen.prototype.click = function() {

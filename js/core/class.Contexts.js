@@ -19,7 +19,7 @@ Contexts.prototype.update = function() {
         this.changeTo = null;
     }
 
-    if(this[this.current].update)
+    if(this[this.current] && this[this.current].update)
         this[this.current].update();
 }
 
