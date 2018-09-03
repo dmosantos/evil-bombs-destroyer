@@ -68,7 +68,7 @@ Contexts.prototype.gamePlay = {
         if($.states.frames.count % 120 == 0 && $.elements.Player)
             $.appendElement(new EnemyBomb());
 
-        var newEnemyMaxLife = 10 + floor(($.states.frames.count - $.states.frames.start) / 1000);
+        var newEnemyMaxLife = 10 + p.floor(($.states.frames.count - $.states.frames.start) / 1000);
         if(newEnemyMaxLife != $.states.enemyMaxLife) {
             $.states.enemyMaxLife = newEnemyMaxLife;
             $.sounds.play('sound', 'alarm');

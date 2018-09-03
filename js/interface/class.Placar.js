@@ -10,18 +10,18 @@ Placar.prototype = new Element();
 
 Placar.prototype.update = function() {
 	this.x = 15;
-	this.y = height;
-	this.width = width;
-	this.height = height;
+	this.y = p.height;
+	this.width = p.width;
+	this.height = p.height;
 }
 
 Placar.prototype.draw = function() {
-    fill($.config.secondColor);
-    noStroke();
+    p.fill($.config.secondColor);
+    p.noStroke();
 
-    textAlign(LEFT, CENTER);
+    p.textAlign(p.LEFT, p.CENTER);
 
-    textSize(18);
-    textStyle(BOLD);
-    text('Score: ' + $.states.points, this.x, 25);
+    p.textSize(18);
+    p.textStyle(p.BOLD);
+    p.text('Score: ' + $.states.points, this.x, 25);
 }

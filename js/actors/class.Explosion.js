@@ -37,7 +37,7 @@ function Explosion(parent) {
 		}
 	})).start();
 
-	$.sounds.play('sound', 'explosion_' + round(random(1, 4)));
+	$.sounds.play('sound', 'explosion_' + p.round(p.random(1, 4)));
 	$.appendElement(new HitParticles(this));
 }
 
@@ -46,19 +46,19 @@ Explosion.prototype = new Element();
 Explosion.prototype.update = function() {
 	if(this.animation.framesElapsed < 5) {
 		$.states.background.active = 'light';
-		$.config.baseColor = color(100);
+		$.config.baseColor = p.color(100);
 	}
 	else {
 		$.states.background.active = 'base';
-		$.config.baseColor = color(0);
+		$.config.baseColor = p.color(0);
 	}
 
 	this.dead = this.animation.isRunning === false;
 }
 
 Explosion.prototype.draw = function() {
-    stroke(0, this.animation.get('alpha'));
-	strokeWeight(this.animation.get('stroke'));
-	noFill();
-	ellipse(this.x, this.y, this.animation.get('diameter'), this.animation.get('diameter'));
+    p.stroke(0, this.animation.get('alpha'));
+	p.strokeWeight(this.animation.get('stroke'));
+	p.noFill();
+	p.ellipse(this.x, this.y, this.animation.get('diameter'), this.animation.get('diameter'));
 }

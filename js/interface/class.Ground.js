@@ -9,14 +9,14 @@ function Ground() {
 Ground.prototype = new Element();
 
 Ground.prototype.update = function() {
-	this.y = height - 50;
-	this.width = width;
-	this.height = height - this.y;
+	this.y = p.height - 50;
+	this.width = p.width;
+	this.height = p.height - this.y;
 }
 
 Ground.prototype.draw = function() {
-    fill($.config.baseColor);
-    noStroke();
+    p.fill($.config.baseColor);
+    p.noStroke();
 
-    rect(this.x, this.y, this.width, this.height);
+    p.rect(this.x, this.y, this.width, this.height);
 }

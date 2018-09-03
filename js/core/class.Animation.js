@@ -31,7 +31,7 @@ Animation.prototype._update = function() {
 	if(this.parent.dead)
 		this.dead = true;
 	else {
-		this.timeElapsed = millis() - this.startedAt;
+		this.timeElapsed = p.millis() - this.startedAt;
 		this.framesElapsed = $.states.frames.count - this.startedFrame;
 
 		if(this.frameRateMode) {
@@ -65,7 +65,7 @@ Animation.prototype._draw = function() {
 
 Animation.prototype.start = function() {
 	this.started = true;
-	this.startedAt = millis();
+	this.startedAt = p.millis();
 	this.startedFrame = $.states.frames.count;
 	this.isRunning = true;
 
@@ -81,7 +81,7 @@ Animation.prototype.get = function(param) {
 	var percExec = EasingFunctions[self.ease](self.percElapsed);
 
 	keys.forEach(function(keyframe, i) {
-		if(percExec * 100 >= int(keyframe)) {
+		if(percExec * 100 >= p.int(keyframe)) {
 			current = keyframe;
 			next = keys[i + 1];
 		}

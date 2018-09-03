@@ -26,25 +26,25 @@ function GameOver() {
 GameOver.prototype = new Element();
 
 GameOver.prototype.update = function() {
-	this.height = height;
-	this.width = width;
+    this.width = p.width;
+	this.height = p.height;
 }
 
 GameOver.prototype.draw = function() {
-	background(150 * noise(millis() / 1000), 150 * noise(millis() / 900), 150 * noise(millis() / 1100));
+	p.background(150 * p.noise(p.millis() / 1000), 150 * p.noise(p.millis() / 900), 150 * p.noise(p.millis() / 1100));
     
-    fill(255);
-    noStroke();
+    p.fill(255);
+    p.noStroke();
 
-    textAlign(CENTER, CENTER);
+    p.textAlign(p.CENTER, p.CENTER);
 
-    textSize(32);
-    textStyle(BOLD);
-    text('GAME OVER', (width * 0.5) - 125, this.height * 0.25, 250);
+    p.textSize(32);
+    p.textStyle(p.BOLD);
+    p.text('GAME OVER', (p.width * 0.5) - 125, this.height * 0.25, 250);
 
-    textSize(18);
-    textStyle(NORMAL);
-    text(
+    p.textSize(18);
+    p.textStyle(p.NORMAL);
+    p.text(
         'SCORE: ' + String($.states.points) + '\n\n\n' +
         (
             this.showRecord
@@ -57,8 +57,8 @@ GameOver.prototype.draw = function() {
         ($.states.frames.count - $.states.frames.start > 120 ? '\n\n\nTOUCH TO RESTART' : '')
     , 0, this.height * 0.45, this.width);
 
-    textSize(14);
-    text('by Diego Marques', 0, this.height - 20, this.width);
+    p.textSize(14);
+    p.text('by Diego Marques', 0, this.height - 20, this.width);
 }
 
 GameOver.prototype.click = function() {

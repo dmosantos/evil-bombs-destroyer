@@ -16,7 +16,7 @@ function Sounds() {
 }
 
 Sounds.prototype.load = function(type, file, callback) {
-	this.files[type][file.replace(/\..*$/g, '').replace(/-/g, '_')] = loadSound('sounds/' + file, callback);
+	this.files[type][file.replace(/\..*$/g, '').replace(/-/g, '_')] = p.loadSound('sounds/' + file, callback);
 }
 
 Sounds.prototype.set = function(type, file, options) {

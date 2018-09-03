@@ -41,21 +41,21 @@ function Message(text) {
 Message.prototype = new Element();
 
 Message.prototype.update = function() {
-	this.x = width / 2;
-	this.y = height / 2;
-	this.width = width;
+	this.x = p.width / 2;
+	this.y = p.height / 2;
+	this.width = p.width;
 
 	if($.states.frames.count - this.start > 130)
 		this.dead = true;
 }
 
 Message.prototype.draw = function() {
-    fill($.config.secondColor, this.animation.get('alpha'));
-    noStroke();
+    p.fill($.config.secondColor, this.animation.get('alpha'));
+    p.noStroke();
 
-    textAlign(CENTER, CENTER);
+    p.textAlign(p.CENTER, p.CENTER);
 
-    textSize(18  * this.animation.get('percSize'));
-    textStyle(BOLD);
-    text(this.text, this.x, height - (this.y * this.animation.get('percY')));
+    p.textSize(18  * this.animation.get('percSize'));
+    p.textStyle(p.BOLD);
+    p.text(this.text, this.x, p.height - (this.y * this.animation.get('percY')));
 }

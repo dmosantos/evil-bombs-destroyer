@@ -12,7 +12,7 @@ function unmute() {
 }
 
 function newId() {
-	return typeof random != 'undefined' ? String(parseInt(random(1000000000, 9999999999))) + '_' + String(parseInt(millis())) : String((new Date()).getMilliseconds());
+	return typeof p.random != 'undefined' ? String(parseInt(p.random(1000000000, 9999999999))) + '_' + String(parseInt(p.millis())) : String((new Date()).getMilliseconds());
 }
 
 function getPoint(mx, my, cx, cy, angle) {
@@ -38,26 +38,26 @@ function getPoint(mx, my, cx, cy, angle) {
 }
 
 function angleBetween(p1x, p1y, p2x, p2y) {
-    return atan2(p2y - p1y, p2x - p1x);
+    return p.atan2(p2y - p1y, p2x - p1x);
 }
 
 function setGradient(x, y, w, h, c1, c2, axis) {
-    noFill();
+    p.noFill();
 
     if (axis == 1) {  // Top to bottom gradient
         for (var i = y; i <= y+h; i++) {
-            var inter = map(i, y, y+h, 0, 1);
-            var c = lerpColor(c1, c2, inter);
-            stroke(c);
-            line(x, i, x+w, i);
+            var inter = p.map(i, y, y+h, 0, 1);
+            var c = p.lerpColor(c1, c2, inter);
+            p.stroke(c);
+            p.line(x, i, x+w, i);
         }
     }  
     else if (axis == 2) {  // Left to right gradient
         for (var i = x; i <= x+w; i++) {
-            var inter = map(i, x, x+w, 0, 1);
-            var c = lerpColor(c1, c2, inter);
-            stroke(c);
-            line(i, y, i, y+h);
+            var inter = p.map(i, x, x+w, 0, 1);
+            var c = p.lerpColor(c1, c2, inter);
+            p.stroke(c);
+            p.line(i, y, i, y+h);
         }
     }
 }
@@ -85,10 +85,10 @@ function t(x) {
     console.table(x);
 }
 function p(color) {
-	fill(255);
-	stroke(0);
+	p.fill(255);
+	p.stroke(0);
 
-    arc(0, 0, 10, 10, 360, 0, CHORD);
+    p.arc(0, 0, 10, 10, 360, 0, CHORD);
 }
 
 function wallBounce(directionAngle, wallAngle) {

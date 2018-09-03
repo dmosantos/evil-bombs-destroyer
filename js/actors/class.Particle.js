@@ -18,8 +18,8 @@ function Particle(parent) {
 				y: this.y
 			},
 			100: {
-				x: round(random(this.x - 80, this.x + 80)),
-				y: round(random(this.y - 80, this.y + 80))
+				x: p.round(p.random(this.x - 80, this.x + 80)),
+				y: p.round(p.random(this.y - 80, this.y + 80))
 			}
 		}
 	})).start();
@@ -45,7 +45,7 @@ Particle.prototype.update = function() {
 }
 
 Particle.prototype.draw = function() {
-	noStroke();
-	fill(0, this.animationAlpha.get('alpha'));
-	ellipse(this.animation.get('x'), this.animation.get('y'), this.diameter, this.diameter);
+	p.noStroke();
+	p.fill(0, this.animationAlpha.get('alpha'));
+	p.ellipse(this.animation.get('x'), this.animation.get('y'), this.diameter, this.diameter);
 }

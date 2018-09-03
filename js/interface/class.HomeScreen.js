@@ -14,26 +14,26 @@ function HomeScreen() {
 HomeScreen.prototype = new Element();
 
 HomeScreen.prototype.update = function() {
-	this.height = height;
-	this.width = width;
+    this.width = p.width;
+	this.height = p.height;
 }
 
 HomeScreen.prototype.draw = function() {
-	background(150 * noise(millis() / 1000), 150 * noise(millis() / 900), 150 * noise(millis() / 1100));
+	p.background(150 * p.noise(p.millis() / 1000), 150 * p.noise(p.millis() / 900), 150 * p.noise(p.millis() / 1100));
 
-    fill(255);
-    noStroke();
+    p.fill(255);
+    p.noStroke();
 
-    textAlign(CENTER, CENTER);
+    p.textAlign(p.CENTER, p.CENTER);
 
-    textSize(32);
-    textStyle(BOLD);
-    text('EVIL BOMBS DESTROYER', (width * 0.5) - 125, this.height * 0.25, 250);
+    p.textSize(32);
+    p.textStyle(p.BOLD);
+    p.text('EVIL BOMBS DESTROYER', (p.width * 0.5) - 125, this.height * 0.25, 250);
 
     //if((millis() / 1000) - $.states.frames.start > 2) {
-        textSize(18);
-        textStyle(NORMAL);
-        text(
+        p.textSize(18);
+        p.textStyle(p.NORMAL);
+        p.text(
             'Touch to start' +
             (
                 this.record
@@ -46,9 +46,9 @@ HomeScreen.prototype.draw = function() {
         , 0, this.height * 0.55, this.width);
     //}
 
-    textSize(14);
-    textStyle(NORMAL);
-    text('by Diego Marques', 0, this.height - 20, this.width);
+    p.textSize(14);
+    p.textStyle(p.NORMAL);
+    p.text('by Diego Marques', 0, this.height - 20, this.width);
 }
 
 HomeScreen.prototype.click = function() {

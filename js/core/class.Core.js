@@ -1,4 +1,4 @@
-var $;
+var $, p;
 
 function Core() {
 	var self = this;
@@ -21,12 +21,12 @@ function Core() {
 	        active: 'base',
 	        get: {
 	            base: {
-	                topColor: color(156, 14, 55),
-	                bottomColor: color(255, 236, 115)
+	                topColor: p.color(156, 14, 55),
+	                bottomColor: p.color(255, 236, 115)
 	            },
 	            light: {
-	                topColor: color(215, 20, 76),
-	                bottomColor: color(255)
+	                topColor: p.color(215, 20, 76),
+	                bottomColor: p.color(255)
 	            }
 	        }
 	    },

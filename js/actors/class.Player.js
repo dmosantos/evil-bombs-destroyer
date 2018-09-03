@@ -7,8 +7,8 @@ function Player() {
     this.layer = 10;
 
 	this.life = 20;
-	this.x = width / 2;
-	this.y = height - 50;
+	this.x = p.width / 2;
+	this.y = p.height - 50;
 	this.width = 60;
 	this.height = 60;
     this.direction = -90;
@@ -27,7 +27,7 @@ function Player() {
     $.events.on('keyReleased', this);
     $.events.on('click', this, {
         middleware: function() {
-            return collidePointRect(mouseX, mouseY, 0, 0, width, self.y + 5)
+            return p.collidePointRect(p.mouseX, p.mouseY, 0, 0, p.width, self.y + 5)
         }
     });
 }
@@ -35,8 +35,8 @@ function Player() {
 Player.prototype = new Element();
 
 Player.prototype.update = function() {
-    this.x = width / 2;
-    this.y = height - 55;
+    this.x = p.width / 2;
+    this.y = p.height - 55;
 
     if(this.key.left || this.key.right)
         this.mouseMoved();
@@ -48,40 +48,40 @@ Player.prototype.update = function() {
 Player.prototype.draw = function() {
 
     // Canhão
-    noStroke();
-    translate(this.x, this.y);
-    rotate(this.direction);
+    p.noStroke();
+    p.translate(this.x, this.y);
+    p.rotate(this.direction);
     if($.states.frames.count - this.lastShoot <= 3) {
-        fill(255, 80);
-        arc(55, 0, 30, 18, 90, 270, CHORD);
-        fill($.config.baseColor);
-        strokeWeight(2);
-        stroke(255, 100);
+        p.fill(255, 80);
+        p.arc(55, 0, 30, 18, 90, 270, p.CHORD);
+        p.fill($.config.baseColor);
+        p.strokeWeight(2);
+        p.stroke(255, 100);
     }
     if($.upgrades.precision.active) {
-        fill(255, 50);
-        rect(-5, 0, 3000, 1);
+        p.fill(255, 50);
+        p.rect(-5, 0, 3000, 1);
     }
-    fill(this.hitStart ? color(180, 0, 0) : $.config.baseColor);
-    rect(-5, -5, 50, 10, 5);
-    rotate(-this.direction);
-    translate(-this.x, -(this.y));
+    p.fill(this.hitStart ? p.color(180, 0, 0) : $.config.baseColor);
+    p.rect(-5, -5, 50, 10, 5);
+    p.rotate(-this.direction);
+    p.translate(-this.x, -(this.y));
 
     // Corpo
-    arc(this.x, this.y + 5, this.width, this.height, 180, 0, CHORD);
+    p.arc(this.x, this.y + 5, this.width, this.height, 180, 0, p.CHORD);
 
     // Life
-    fill($.config.secondColor);
-    noStroke();
-    textAlign(CENTER, CENTER);
-    textStyle(BOLD);
-    textSize(16);
-    text(this.life, this.x, this.y - 8);
+    p.fill($.config.secondColor);
+    p.noStroke();
+    p.textAlign(p.CENTER, p.CENTER);
+    p.textStyle(p.BOLD);
+    p.textSize(16);
+    p.text(this.life, this.x, this.y - 8);
 
     // Hit
     if(this.hitStart && $.states.frames.count - this.hitStart < 5) {
-        fill(255, 0, 0, 150);
-        rect(0, 0, width, height);
+        p.fill(255, 0, 0, 150);
+        p.rect(0, 0, p.width, p.height);
     }
     else
         this.hitStart = 0;
@@ -116,11 +116,11 @@ Player.prototype.keyPressed = function(k) {
     this.directionFactor = 0;
 
     switch(k) {
-        case LEFT_ARROW:
+        case p.LEFT_ARROW:
             this.key.left = true;
             break;
 
-        case RIGHT_ARROW:
+        case p.RIGHT_ARROW:
             this.key.right = true;
             break;
 
@@ -133,11 +133,11 @@ Player.prototype.keyPressed = function(k) {
 
 Player.prototype.keyReleased = function(k) {
     switch(k) {
-        case LEFT_ARROW:
+        case p.LEFT_ARROW:
             this.key.left = false;
             break;
 
-        case RIGHT_ARROW:
+        case p.RIGHT_ARROW:
             this.key.right = false;
             break;
 
@@ -150,10 +150,10 @@ Player.prototype.keyReleased = function(k) {
 Player.prototype.mouseMoved = function() {
     this.directionFactor = this.directionFactor + 0.2;
     this.direction = this.key.left
-        ? this.direction - constrain(this.directionFactor, 0, 10)
+        ? this.direction - p.constrain(this.directionFactor, 0, 10)
         : this.key.right
-            ? this.direction + constrain(this.directionFactor, 0, 10)
-            : atan2(mouseY - this.y, mouseX - this.x);
+            ? this.direction + p.constrain(this.directionFactor, 0, 10)
+            : p.atan2(p.mouseY - this.y, p.mouseX - this.x);
 
     this.direction = this.direction % 360;
     if (this.direction < 0)

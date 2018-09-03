@@ -1,22 +1,22 @@
 function EnemyBomb() {
 	Element.call(this);
 
-    if(typeof random != 'undefined') {
+    if(typeof p.round != 'undefined') {
         this.type = 'EnemyBomb';
         this.id = this.type + '_' + newId();
         this.layer = 5;
 
-        this.x = round(random(50, width - 50));
+        this.x = p.round(p.random(50, p.width - 50));
         this.y = -30;
         this.height = 30;
         this.width = 60;
         this.speed = 1;
         this.direction = 90;
-        this.life = round(random(1, $.states.enemyMaxLife)) || 1;
+        this.life = p.round(p.random(1, $.states.enemyMaxLife)) || 1;
         this.initialLife = this.life;
 
         //var lado = round(random(1, 2));
-        var lado = this.x >= width / 2 ? 1 : 2;
+        var lado = this.x >= p.width / 2 ? 1 : 2;
         this.animation = (new Animation(this, {
             duration: 10000,
             loop: true,
@@ -56,7 +56,7 @@ function EnemyBomb() {
 
         this.initialDirection = this.direction;
         this.lastHit = 0;
-        this.upgrade = Object.keys($.upgrades)[floor(random(0, Object.keys($.upgrades).length))];
+        this.upgrade = Object.keys($.upgrades)[p.floor(p.random(0, Object.keys($.upgrades).length))];
     }
 }
 
@@ -68,7 +68,7 @@ EnemyBomb.prototype.update = function() {
     this.direction = this.initialDirection + this.animation.get('direction');
     
     // Verifica se bateu no chão
-    if(this.y + (this.width / 2) > ($.elements.Ground ? $.elements.Ground.y : height)) {
+    if(this.y + (this.width / 2) > ($.elements.Ground ? $.elements.Ground.y : p.height)) {
         if($.elements.Player)
             $.elements.Player._hit(this.life);
 
@@ -80,7 +80,7 @@ EnemyBomb.prototype.update = function() {
         Object.keys($.by.types.PlayerBullet).forEach(function(id) {
             var bulletCoord = getPoint(self.x, self.y, $.elements[id].x, $.elements[id].y, -self.direction);
 
-            if(collideRectCircle(self.x - (self.width / 2), self.y - (self.height / 2), self.width, self.height, bulletCoord.x, bulletCoord.y, $.elements[id].diameter)) {
+            if(p.collideRectCircle(self.x - (self.width / 2), self.y - (self.height / 2), self.width, self.height, bulletCoord.x, bulletCoord.y, $.elements[id].diameter)) {
                 $.elements[id]._hit(1);
                 self._hit(1);
             }
@@ -88,78 +88,78 @@ EnemyBomb.prototype.update = function() {
 }
 
 EnemyBomb.prototype.draw = function() {
-    translate(this.x, this.y);
-    rotate(this.direction);
-    translate(-(this.width / 2), -(this.height / 2));
+    p.translate(this.x, this.y);
+    p.rotate(this.direction);
+    p.translate(-(this.width / 2), -(this.height / 2));
 
-    noStroke();
+    p.noStroke();
     
     // Fogo
-    fill(255, 50);
-    beginShape();
+    p.fill(255, 50);
+    p.beginShape();
     
-    curveVertex(this.width * 0.2, this.height * 0.5);
+    p.curveVertex(this.width * 0.2, this.height * 0.5);
     
-    curveVertex(this.width * 0.19, this.height * 0.4 * this.animationFire.get('size'));
-    curveVertex(this.width * 0.12, this.height * 0.3 * this.animationFire.get('size'));
-    curveVertex(0, this.height * 0.4);
+    p.curveVertex(this.width * 0.19, this.height * 0.4 * this.animationFire.get('size'));
+    p.curveVertex(this.width * 0.12, this.height * 0.3 * this.animationFire.get('size'));
+    p.curveVertex(0, this.height * 0.4);
     
-    curveVertex((this.width * -0.5) * random(this.animationFire.get('size'), this.animationFire.get('size') * 0.5), this.height * random(0.4, 0.6));
+    p.curveVertex((this.width * -0.5) * p.random(this.animationFire.get('size'), this.animationFire.get('size') * 0.5), this.height * p.random(0.4, 0.6));
 
-    curveVertex(0, this.height * 0.6);
-    curveVertex(this.width * 0.12, this.height * (0.7 + 0.3 - (0.3 * this.animationFire.get('size'))));
-    curveVertex(this.width * 0.19, this.height * (0.6 + 0.4 - (0.4 * this.animationFire.get('size'))));
+    p.curveVertex(0, this.height * 0.6);
+    p.curveVertex(this.width * 0.12, this.height * (0.7 + 0.3 - (0.3 * this.animationFire.get('size'))));
+    p.curveVertex(this.width * 0.19, this.height * (0.6 + 0.4 - (0.4 * this.animationFire.get('size'))));
 
-    curveVertex(this.width * 0.2, this.height * 0.5);
+    p.curveVertex(this.width * 0.2, this.height * 0.5);
 
-    endShape(CLOSE);
+    p.endShape(p.CLOSE);
     
     if($.states.frames.count <= this.lastHit + 1)
-        fill(70);
+        p.fill(70);
     else
-        fill(this.animation.get('color') || $.config.baseColor);
+        p.fill(this.animation.get('color') || $.config.baseColor);
     
     // Asa de cima
-    beginShape();
-    vertex(0, 0);
-    vertex(this.width * 0.25, 0);
-    vertex(this.width * 0.4, this.height * 0.38);
-    vertex(this.width * 0.1, this.height * 0.38);
-    endShape(CLOSE);
+    p.beginShape();
+    p.vertex(0, 0);
+    p.vertex(this.width * 0.25, 0);
+    p.vertex(this.width * 0.4, this.height * 0.38);
+    p.vertex(this.width * 0.1, this.height * 0.38);
+    p.endShape(p.CLOSE);
     
     // Asa de baixo
-    beginShape();
-    vertex(this.width * 0.1, this.height * 0.62);
-    vertex(this.width * 0.4, this.height * 0.62);
-    vertex(this.width * 0.25, this.height);
-    vertex(0, this.height);
-    endShape(CLOSE);
+    p.beginShape();
+    p.vertex(this.width * 0.1, this.height * 0.62);
+    p.vertex(this.width * 0.4, this.height * 0.62);
+    p.vertex(this.width * 0.25, this.height);
+    p.vertex(0, this.height);
+    p.endShape(p.CLOSE);
 
     // Corpo
-    rect(this.width * 0.2, this.height * 0.05, this.width * 0.8, this.height * 0.9, (this.height * 0.9) / 2);
+    p.rect(this.width * 0.2, this.height * 0.05, this.width * 0.8, this.height * 0.9, (this.height * 0.9) / 2);
 
     // Asa do meio
-    rect(0, this.height * 0.45, this.width * 0.4, this.height * 0.1);
+    p.rect(0, this.height * 0.45, this.width * 0.4, this.height * 0.1);
 
     // Upgrade
-    fill($.config.secondColor, 150);
-    noStroke();
-    textFont(fontAwesome);
-    textAlign(CENTER, CENTER);
-    textSize(11);
-    text(char($.upgrades[this.upgrade].label), this.width * 0.80, (this.height / 2) - 1);
+    p.fill($.config.secondColor, 150);
+    p.noStroke();
+    p.textFont(fontAwesome);
+    p.textAlign(p.CENTER, p.CENTER);
+    p.textSize(11);
+    p.text(p.char($.upgrades[this.upgrade].label), this.width * 0.80, (this.height / 2) - 1);
 
     // Life
-    fill($.config.secondColor);
-    //stroke($.config.secondColor);
-    strokeWeight(1);
-    translate(this.width * 0.5, this.height / 2);
-    //rotate(-this.direction);
-    rotate(-90);
-    textFont(fontBase);
-    textStyle(BOLD);
-    textSize(16);
-    text(this.life, 0, 0);
+    p.fill($.config.secondColor);
+    //p.stroke($.config.secondColor);
+    p.strokeWeight(1);
+    p.translate(this.width * 0.5, this.height / 2);
+    //p.rotate(-this.direction);
+    p.rotate(-90);
+    p.textFont(fontBase);
+    p.textStyle(p.BOLD);
+    p.textSize(16);
+    p.text(this.life, 0, 0);
 }
 
 EnemyBomb.prototype.hit = function() {
@@ -185,7 +185,7 @@ EnemyBomb.prototype.die = function() {
 function EnemyBomb2() {
     EnemyBomb.call(this);
 
-    this.x = width / 2;
+    this.x = p.width / 2;
     this.y = -35;
     this.height = 45;
     this.width = 70;

@@ -10,11 +10,10 @@ function BtnPowerUp() {
     	this.width = 49;
     	this.height = 50;
     	this.x = 0;
-        this.y = height - 50;
 
         $.events.on('click', this, {
             middleware: function() {
-                return collidePointRect(mouseX, mouseY, self.x, self.y, self.width, self.height);
+                return p.collidePointRect(p.mouseX, p.mouseY, self.x, self.y, self.width, self.height);
             }
         });
     }
@@ -26,45 +25,46 @@ function BtnPowerUp() {
 BtnPowerUp.prototype = new Element();
 
 BtnPowerUp.prototype.update = function() {
+    this.y = p.height - 50;
     $.upgrades.update(this.name);
 }
 
 BtnPowerUp.prototype.draw = function() {
     var self = this;
 
-    noFill();
-    strokeWeight(1);
-    stroke($.config.secondColor, 50);
+    p.noFill();
+    p.strokeWeight(1);
+    p.stroke($.config.secondColor, 50);
 
-    line(this.x + this.width, this.y, this.x + this.width, this.y + this.height);
+    p.line(this.x + this.width, this.y, this.x + this.width, this.y + this.height);
 
-    fill($.config.secondColor, this.upgrade.enable ? 255 : this.upgrade.level ? 180 : 100);
-    noStroke();
-    textAlign(CENTER, CENTER);
-    textFont(fontAwesome);
+    p.fill($.config.secondColor, this.upgrade.enable ? 255 : this.upgrade.level ? 180 : 100);
+    p.noStroke();
+    p.textAlign(p.CENTER, p.CENTER);
+    p.textFont(fontAwesome);
 
     // Icon
-    textSize(18);
-    text(char(this.upgrade.label), this.x + (this.width / 2), this.y + (this.height * 0.55));
+    p.textSize(18);
+    p.text(p.char(this.upgrade.label), this.x + (this.width / 2), this.y + (this.height * 0.55));
 
     // level
-    textSize(8);
-    text([1, 2, 3, 4, 5].reduce(function(r, i) { return i <= self.upgrade.level ? r + char(61445) : r }, ''), this.x + (this.width / 2), this.y + (this.height * 0.2));
+    p.textSize(8);
+    p.text([1, 2, 3, 4, 5].reduce(function(r, i) { return i <= self.upgrade.level ? r + p.char(61445) : r }, ''), this.x + (this.width / 2), this.y + (this.height * 0.2));
 
     // Progress Bar XP
-    rect(this.x, this.y, this.width * (this.upgrade.xp / this.upgrade.nextLevel[this.upgrade.level]), 5);
+    p.rect(this.x, this.y, this.width * (this.upgrade.xp / this.upgrade.nextLevel[this.upgrade.level]), 5);
 
     // Progress Bar Energy
-    rect(this.x, this.y + this.height - 5, this.width * (this.upgrade.enable ? this.upgrade.active ? 1 - (($.states.frames.count - this.upgrade.start) / this.upgrade.duration[this.upgrade.level]) : 1 : (this.upgrade.energy / this.upgrade.full[this.upgrade.level])), 5);
+    p.rect(this.x, this.y + this.height - 5, this.width * (this.upgrade.enable ? this.upgrade.active ? 1 - (($.states.frames.count - this.upgrade.start) / this.upgrade.duration[this.upgrade.level]) : 1 : (this.upgrade.energy / this.upgrade.full[this.upgrade.level])), 5);
 
     // Ready label
     if(this.upgrade.enable && !this.upgrade.active) {
-        rect(this.x, this.y + this.height - 10, this.width, 10);
-        fill($.config.baseColor);
-        textFont(fontBase);
-        textStyle(BOLD);
-        textSize(14);
-        text('ready', this.x + (this.width / 2), this.y + this.height - 8);
+        p.rect(this.x, this.y + this.height - 10, this.width, 10);
+        p.fill($.config.baseColor);
+        p.textFont(fontBase);
+        p.textStyle(p.BOLD);
+        p.textSize(14);
+        p.text('ready', this.x + (this.width / 2), this.y + this.height - 8);
     }
 }
 

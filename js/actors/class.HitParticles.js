@@ -30,8 +30,8 @@ HitParticles.prototype.update = function() {
 }
 
 HitParticles.prototype.draw = function() {
-	if(this.lastParticle != round(this.animation.get('particle'))) {
-		this.lastParticle = round(this.animation.get('particle'))
+	if(this.lastParticle != p.round(this.animation.get('particle'))) {
+		this.lastParticle = p.round(this.animation.get('particle'))
 		$.appendElement(new Particle(this));
 		$.appendElement(new Particle(this));
 	}
