@@ -3,6 +3,7 @@ function Element() {
     this.id = null;
     this.layer = 1;
     this.context = $ ? $.by.contexts.current : null;
+    this.updateOnPause = false;
 
     this.x = 0;
     this.y = 0;

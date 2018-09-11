@@ -10,7 +10,7 @@ function EnemyBomb() {
         this.y = -30;
         this.height = 30;
         this.width = 60;
-        this.speed = 1;
+        this.speed = 2;
         this.direction = 90;
         this.life = p.round(p.random(1, $.states.enemyMaxLife)) || 1;
         this.initialLife = this.life;
@@ -236,7 +236,7 @@ function EnemyBomb3(lado) {
     this.width = 50;
 
     this.animation = (new Animation(this, {
-        duration: 5000,
+        duration: 3000,
         loop: true,
         mode: 'FRAMERATE',
         keyframes: {

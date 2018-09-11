@@ -16,6 +16,8 @@ function BtnPowerUp() {
                 return p.collidePointRect(p.mouseX, p.mouseY, self.x, self.y, self.width, self.height);
             }
         });
+
+        $.events.on('keyPressed', this);
     }
     
     this.name = null;
@@ -83,6 +85,11 @@ function BtnPowerUpAuto() {
 
 BtnPowerUpAuto.prototype = new BtnPowerUp();
 
+BtnPowerUpAuto.prototype.keyPressed = function(key) {
+    if(key == 90)
+        this.click();
+}
+
 /* Multi */
 function BtnPowerUpMulti() {
     BtnPowerUp.call(this);
@@ -93,6 +100,11 @@ function BtnPowerUpMulti() {
 }
 
 BtnPowerUpMulti.prototype = new BtnPowerUp();
+
+BtnPowerUpMulti.prototype.keyPressed = function(key) {
+    if(key == 88)
+        this.click();
+}
 
 /* Precision */
 function BtnPowerUpPrecision() {
@@ -105,6 +117,11 @@ function BtnPowerUpPrecision() {
 
 BtnPowerUpPrecision.prototype = new BtnPowerUp();
 
+BtnPowerUpPrecision.prototype.keyPressed = function(key) {
+    if(key == 67)
+        this.click();
+}
+
 /* Bounce */
 function BtnPowerUpBounce() {
     BtnPowerUp.call(this);
@@ -116,6 +133,11 @@ function BtnPowerUpBounce() {
 
 BtnPowerUpBounce.prototype = new BtnPowerUp();
 
+BtnPowerUpBounce.prototype.keyPressed = function(key) {
+    if(key == 86)
+        this.click();
+}
+
 /* Missiles */
 function BtnPowerUpMissiles() {
     BtnPowerUp.call(this);
@@ -126,3 +148,8 @@ function BtnPowerUpMissiles() {
 }
 
 BtnPowerUpMissiles.prototype = new BtnPowerUp();
+
+BtnPowerUpMissiles.prototype.keyPressed = function(key) {
+    if(key == 66)
+        this.click();
+}

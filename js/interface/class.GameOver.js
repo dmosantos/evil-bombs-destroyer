@@ -49,7 +49,7 @@ GameOver.prototype.draw = function() {
         (
             this.showRecord
                 ? (
-                    ($.states.points >= this.record ? 'NEW RECORD!' : 'RECORD') + '\n' +
+                    ($.states.points >= this.record ? 'NEW HIGH SCORE!' : 'HIGH SCORE') + '\n' +
                     this.recordName + ': ' + String(this.record)
                 )
                 : ''

@@ -32,7 +32,7 @@ Upgrades.prototype.reset = function() {
         level: 0,
         xp: 0,
         nextLevel: {
-            0: 50,
+            0: 15,
             1: 100,
             2: 200,
             3: 350,
@@ -63,7 +63,7 @@ Upgrades.prototype.reset = function() {
         level: 0,
         xp: 0,
         nextLevel: {
-            0: 50,
+            0: 15,
             1: 100,
             2: 200,
             3: 350,
@@ -94,7 +94,7 @@ Upgrades.prototype.reset = function() {
         level: 0,
         xp: 0,
         nextLevel: {
-            0: 50,
+            0: 15,
             1: 100,
             2: 200,
             3: 350,
@@ -125,7 +125,7 @@ Upgrades.prototype.reset = function() {
         level: 0,
         xp: 0,
         nextLevel: {
-            0: 50,
+            0: 15,
             1: 100,
             2: 200,
             3: 350,
@@ -156,7 +156,7 @@ Upgrades.prototype.reset = function() {
         level: 0,
         xp: 0,
         nextLevel: {
-            0: 50,
+            0: 15,
             1: 100,
             2: 200,
             3: 350,

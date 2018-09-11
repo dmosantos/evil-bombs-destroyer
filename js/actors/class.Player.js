@@ -22,9 +22,13 @@ function Player() {
         space: false
     }
 
-    $.events.on('mouseMoved', this);
     $.events.on('keyPressed', this);
     $.events.on('keyReleased', this);
+    $.events.on('mouseMoved', this, {
+        middleware: function() {
+            return p.collidePointRect(p.mouseX, p.mouseY, 0, 0, p.width, self.y + 5)
+        }
+    });
     $.events.on('click', this, {
         middleware: function() {
             return p.collidePointRect(p.mouseX, p.mouseY, 0, 0, p.width, self.y + 5)
@@ -41,7 +45,7 @@ Player.prototype.update = function() {
     if(this.key.left || this.key.right)
         this.mouseMoved();
 
-    if($.upgrades.auto.active && $.states.frames.count - this.lastShoot >= 5)
+    if($.upgrades.auto.active && $.states.frames.count - this.lastShoot >= 3)
         this.click();
 }
 

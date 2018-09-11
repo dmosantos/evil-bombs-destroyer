@@ -37,6 +37,8 @@ Sounds.prototype.applyConfig = function() {
 			self.set(type, file, self.config[type]);
 		});
 	});
+
+	$.data.set('soundConfig', this.config);
 }
 
 Sounds.prototype.play = function(type, file, options) {

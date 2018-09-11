@@ -17,10 +17,17 @@ function Animation(parent, config) {
 	this.ease = config.ease || 'linear';
 	this.keyframes = config.keyframes;
 
+	this.onBeforeStart = config.onBeforeStart;
+	this.onStart = config.onStart;
+	this.onComplete = config.onComplete;
+
 	this.timeElapsed;
 	this.framesElapsed;
 	this.percElapsed;
 	this.isRunning = false;
+
+	if(typeof this.onBeforeStart == 'function')
+		this.onBeforeStart();
 
 	$.appendElement(this);
 
@@ -44,8 +51,13 @@ Animation.prototype._update = function() {
 	
 		this.dead = this.loop ? false : !this.isRunning;
 
-		if(!this.isRunning && this.loop)
-			this.start();
+		if(!this.isRunning) {
+			if(typeof this.onComplete == 'function')
+				this.onComplete();
+
+			if(this.loop)
+				this.start();
+		}
 	}
 }
 
@@ -68,6 +80,9 @@ Animation.prototype.start = function() {
 	this.startedAt = p.millis();
 	this.startedFrame = $.states.frames.count;
 	this.isRunning = true;
+
+	if(typeof this.onStart == 'function')
+		this.onStart();
 
 	return this;
 }

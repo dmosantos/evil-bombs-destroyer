@@ -12,7 +12,9 @@ function BtnPause() {
     $.events.on('click', this, {
         triggerOnPause: true,
         middleware: function() {
-            return p.collidePointRect(p.mouseX, p.mouseY, self.x, self.y, self.width, self.height);
+            return !$.states.pause || $.elements.WindowPause === undefined
+                ? p.collidePointRect(p.mouseX, p.mouseY, self.x, self.y, self.width, self.height)
+                : p.collidePointRect(p.mouseX, p.mouseY, $.elements.WindowPause.x + ($.elements.WindowPause.width / 2) - 110, $.elements.WindowPause.y + ($.elements.WindowPause.height / 2) - 60, 100, 50);
         }
     });
 }
@@ -20,7 +22,7 @@ function BtnPause() {
 BtnPause.prototype = new Element();
 
 BtnPause.prototype.update = function() {
-	this.x = p.width - 100;
+	this.x = p.width - 50;
 	this.y = p.height - 50;
 }
 
@@ -41,4 +43,9 @@ BtnPause.prototype.draw = function() {
 
 BtnPause.prototype.click = function() {
     $.states.pause = !$.states.pause;
+
+    if($.states.pause)
+        $.appendElement(new WindowPause());
+    else
+        $.elements.WindowPause.dead = true;
 }

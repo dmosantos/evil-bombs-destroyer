@@ -26,11 +26,17 @@ var sketch = function(p5Instance) {
             ['sound', 'upgrade-start.mp3']
         ];
 
-        var total = 2 + soundFiles.length,
+        var imageFiles = ['logo-estudio-nos.png'];
+
+        var total = 2 + soundFiles.length + imageFiles.length,
             done = 0;
 
         soundFiles.forEach(function(file) {
             $.sounds.load(file[0], file[1], ready);
+        });
+
+        imageFiles.forEach(function(file) {
+            $.images.load(file, ready);
         });
 
         fontAwesome = p.loadFont('fonts/FontAwesome.otf', ready);
@@ -42,19 +48,20 @@ var sketch = function(p5Instance) {
             if(done == total) {
                 gameReady = true;
                 $.contexts.show('homeScreen');
+                //$.contexts.show('logos');
             }
         }
 
         p.createCanvas(p.windowWidth, p.windowHeight);
         p.angleMode(p.DEGREES);
 
-        if($.data.get('mute'))
-            mute();
+        if($.data.get('soundConfig'))
+            $.sounds.config = $.data.get('soundConfig');
     }
 
     p.draw = function() {
         p.clear();
-        p.background(255);
+        p.background(0);
 
         if(gameReady) {
 
@@ -69,7 +76,7 @@ var sketch = function(p5Instance) {
             if(typeof $.by.contexts[$.by.contexts.current] != 'undefined') {
                 Object.keys($.by.contexts[$.by.contexts.current]).forEach(function(layer) {
                     Object.keys($.by.contexts[$.by.contexts.current][layer]).forEach(function(id) {
-                        if(!$.states.pause)
+                        if(!$.states.pause || $.by.contexts[$.by.contexts.current][layer][id].updateOnPause)
                             $.by.contexts[$.by.contexts.current][layer][id]._update();
                         p.push();
                         p.textFont(fontBase);
@@ -105,29 +112,36 @@ var sketch = function(p5Instance) {
     }
 
     p.mousePressed = function(e) {
-        $.events.trigger('mouseMoved');
+        if($)
+            $.events.trigger('mouseMoved');
         fire(e.type);
     }
 
     p.touchStarted = function(e) {
-        $.events.trigger('mouseMoved');
-        fire(e.type);
+        if($) {
+            $.events.trigger('mouseMoved');
+            fire(e.type);
+        }
     }
 
     p.mouseMoved = function() {
-        $.events.trigger('mouseMoved');
+        if($)
+            $.events.trigger('mouseMoved');
     }
 
     p.touchMoved = function() {
-        $.events.trigger('mouseMoved');
+        if($)
+            $.events.trigger('mouseMoved');
     }
 
     p.keyPressed = function() {
-        $.events.trigger('keyPressed', p.keyCode);
+        if($)
+            $.events.trigger('keyPressed', p.keyCode);
     }
 
     p.keyReleased = function() {
-        $.events.trigger('keyReleased', p.keyCode);
+        if($)
+            $.events.trigger('keyReleased', p.keyCode);
     }
 
     function fire(type) {

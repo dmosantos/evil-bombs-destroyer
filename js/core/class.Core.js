@@ -36,6 +36,7 @@ function Core() {
 	}
 
 	// Objects
+	this.images = new Images();
 	this.sounds = new Sounds();
 	this.data = new LocalStorageData();
 	this.events = new Events();

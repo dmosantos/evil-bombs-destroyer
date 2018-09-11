@@ -30,21 +30,19 @@ HomeScreen.prototype.draw = function() {
     p.textStyle(p.BOLD);
     p.text('EVIL BOMBS DESTROYER', (p.width * 0.5) - 125, this.height * 0.25, 250);
 
-    //if((millis() / 1000) - $.states.frames.start > 2) {
-        p.textSize(18);
-        p.textStyle(p.NORMAL);
-        p.text(
-            'Touch to start' +
-            (
-                this.record
-                    ? (
-                        '\n\n\nRECORD' + '\n' +
-                        this.recordName + ': ' + String(this.record)
-                    )
-                    : ''
-            )
-        , 0, this.height * 0.55, this.width);
-    //}
+    p.textSize(18);
+    p.textStyle(p.NORMAL);
+    p.text(
+        'Touch to start' +
+        (
+            this.record
+                ? (
+                    '\n\n\nRECORD' + '\n' +
+                    this.recordName + ': ' + String(this.record)
+                )
+                : ''
+        )
+    , 0, this.height * 0.55, this.width);
 
     p.textSize(14);
     p.textStyle(p.NORMAL);

@@ -113,3 +113,71 @@ function wallBounce(directionAngle, wallAngle) {
 
     return r;
 }
+
+p5.prototype.createCanvas = function(w, h, renderer) {
+    var defaultClass = 'p5Canvas';
+    var defaultId = 'defaultCanvas';
+  p5._validateParameters('createCanvas', arguments);
+  //optional: renderer, otherwise defaults to p2d
+  var r = renderer || p.P2D;
+  var c;
+
+  if (r === p.WEBGL) {
+    c = document.getElementById(defaultId);
+    /*if (c) {
+      //if defaultCanvas already exists
+      c.parentNode.removeChild(c); //replace the existing defaultCanvas
+      var thisRenderer = this._renderer;
+      this._elements = this._elements.filter(function(e) {
+        return e !== thisRenderer;
+      });
+    }*/
+    c = document.getElementById('defaultCanvas');
+    c.id = defaultId;
+    c.classList.add(defaultClass);
+  } else {
+    if (!this._defaultGraphicsCreated) {
+      c = document.getElementById('defaultCanvas');
+      var i = 0;
+      while (document.getElementById('defaultCanvas' + i)) {
+        i++;
+      }
+      defaultId = 'defaultCanvas' + i;
+      c.id = defaultId;
+      c.classList.add(defaultClass);
+    } else {
+      // resize the default canvas if new one is created
+      c = this.canvas;
+    }
+  }
+
+  // set to invisible if still in setup (to prevent flashing with manipulate)
+  if (!this._setupDone) {
+    c.dataset.hidden = true; // tag to show later
+    c.style.visibility = 'hidden';
+  }
+
+  //if (this._userNode) {
+  //  // user input node case
+  //  this._userNode.appendChild(c);
+  //} else {
+  //  document.body.appendChild(c);
+  //}
+
+  // Init our graphics renderer
+  //webgl mode
+  if (r === p.WEBGL) {
+    this._setProperty('_renderer', new p5.RendererGL(c, this, true));
+    this._elements.push(this._renderer);
+  } else {
+    //P2D mode
+    if (!this._defaultGraphicsCreated) {
+      this._setProperty('_renderer', new p5.Renderer2D(c, this, true));
+      this._defaultGraphicsCreated = true;
+      this._elements.push(this._renderer);
+    }
+  }
+  this._renderer.resize(w, h);
+  this._renderer._applyDefaults();
+  return this._renderer;
+};

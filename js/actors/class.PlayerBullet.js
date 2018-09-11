@@ -44,9 +44,18 @@ PlayerBullet.prototype.update = function() {
 }
 
 PlayerBullet.prototype.draw = function() {
+	p.translate(this.x, this.y);
+    p.rotate(this.direction);
+    p.translate(-this.x, -this.y);
+
     p.fill($.config.baseColor);
     p.stroke(0);
     p.noStroke();
 
     p.ellipse(this.x, this.y, this.diameter, this.diameter);
+    p.beginShape();
+    p.vertex(this.x, this.y - (this.diameter / 2));
+    p.vertex(this.x, this.y + (this.diameter / 2));
+    p.vertex(this.x - this.diameter, this.y);
+    p.endShape(p.CLOSE);
 }

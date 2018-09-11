@@ -23,6 +23,16 @@ Contexts.prototype.update = function() {
         this[this.current].update();
 }
 
+// Logos
+Contexts.prototype.logos = {
+    show: function() {
+        $.states.frames.start = $.states.frames.count;
+        $.by.contexts.current = 'logos';
+
+        $.appendElement(new Logos());
+    }
+}
+
 // Tela inicial
 Contexts.prototype.homeScreen = {
     show: function() {
@@ -55,7 +65,7 @@ Contexts.prototype.gamePlay = {
 
         $.appendElement(new Ground());
         $.appendElement(new Placar());
-        $.appendElement(new BtnSound());
+        //$.appendElement(new BtnSound());
         $.appendElement(new BtnPause());
         $.appendElement(new BtnPowerUpAuto());
         $.appendElement(new BtnPowerUpMulti());
