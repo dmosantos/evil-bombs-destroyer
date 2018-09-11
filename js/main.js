@@ -47,8 +47,8 @@ var sketch = function(p5Instance) {
 
             if(done == total) {
                 gameReady = true;
-                $.contexts.show('homeScreen');
-                //$.contexts.show('logos');
+                //$.contexts.show('homeScreen');
+                $.contexts.show('logos');
             }
         }
 
