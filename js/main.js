@@ -153,7 +153,12 @@ var sketch = function(p5Instance) {
     }
 };
 
-var ebdP5 = new p5(sketch);
+
+document.addEventListener("deviceready", onDeviceReady, false);
+ 
+function onDeviceReady(){
+    var ebdP5 = new p5(sketch);
+}
 
 /*// Foco na janela
 if (window.addEventListener)
