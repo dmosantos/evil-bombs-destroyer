@@ -161,7 +161,11 @@ document.addEventListener("deviceready", onDeviceReady, false);
 alert(1);
 function onDeviceReady(){
     alert(2);
-    var ebdP5 = new p5(sketch);
+    try {
+        var ebdP5 = new p5(sketch);
+    } catch(e) {
+        alert(e.message);
+    }
 }
 
 /*// Foco na janela
