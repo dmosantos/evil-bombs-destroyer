@@ -153,7 +153,6 @@ var sketch = function(p5Instance) {
     }
 };
 
-
 document.addEventListener("deviceready", onDeviceReady, false);
  
 function onDeviceReady(){
