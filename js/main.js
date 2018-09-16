@@ -3,9 +3,11 @@ var fontBase;
 var gameReady = false;
 
 var sketch = function(p5Instance) {
+    alert(3);
     p = p5Instance;
 
     p.setup = function() {
+        alert(4);
         $ = new Core();
 
         p.soundFormats('mp3');
@@ -60,6 +62,7 @@ var sketch = function(p5Instance) {
     }
 
     p.draw = function() {
+        alert(5);
         p.clear();
         p.background(0);
 
