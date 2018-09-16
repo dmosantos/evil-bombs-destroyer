@@ -164,7 +164,7 @@ function onDeviceReady(){
     try {
         var ebdP5 = new p5(sketch);
     } catch(e) {
-        alert(e.message);
+        alert(e);
     }
 }
 
