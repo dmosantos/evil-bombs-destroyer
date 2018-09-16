@@ -154,8 +154,10 @@ var sketch = function(p5Instance) {
 };
 
 document.addEventListener("deviceready", onDeviceReady, false);
- 
+
+alert(1);
 function onDeviceReady(){
+    alert(2);
     var ebdP5 = new p5(sketch);
 }
 
